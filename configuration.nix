@@ -14,7 +14,6 @@
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    alacritty
     antigen
     binutils
     bluez
@@ -33,7 +32,6 @@
     libreoffice
     light
     nerdfonts
-    nvidia-offload
     powertop
     python37Full
     python37Packages.ipython
