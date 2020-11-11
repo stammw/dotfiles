@@ -15,7 +15,10 @@ let
   '';
 in
 {
-  imports = [ ./machines/current.nix ];
+  imports = [
+    ./machines/current.nix
+    ./secrets.nix
+  ];
 
   nixpkgs.config = {
     allowUnfree = true;
