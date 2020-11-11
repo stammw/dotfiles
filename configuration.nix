@@ -38,9 +38,6 @@ in
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.enableCryptodisk = true;
 
-  # Supposedly better for the SSD.
-  fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
-
   networking.hostName = "jc-laptop"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
