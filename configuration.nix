@@ -1,68 +1,16 @@
-
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
-in
 {
   imports = [
-    ./machines/current.nix
     ./secrets.nix
+    ./system.nix
+    ./machines/current.nix
+    ./home.nix
   ];
 
   nixpkgs.config = {
     allowUnfree = true;
   };
-
-  boot.kernelPackages = pkgs.linuxPackages_5_8;
-  boot.blacklistedKernelModules = ["nouveau"];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.enableCryptodisk = true;
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LANG = "en_US.UTF-8";
-    LC_CTYPE = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-    LC_COLLATE = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_MESSAGES = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_ALL = "en_US.UTF-8";
-  };
-
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "fr";
-  };
-
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
