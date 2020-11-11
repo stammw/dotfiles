@@ -15,11 +15,7 @@ let
   '';
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      <nixos-hardware/dell/xps/15-9500>
-      ./hardware-configuration.nix
-    ];
+  imports = [ ./machines/current.nix ];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -31,7 +27,6 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices.vg.device = "/dev/disk/by-uuid/912bc249-1e34-4b8f-a2ae-9de8b7de3630";
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -39,38 +34,6 @@ in
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.enableCryptodisk = true;
-
-  boot.extraModprobeConfig = pkgs.lib.mkMerge [
-    # idle audio card after one second
-    "options snd_hda_intel power_save=1"
-    # enable wifi power saving (keep uapsd off to maintain low latencies)
-    "options iwlwifi power_save=1 uapsd_disable=1"
-  ];
-
-  services.tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        SOUND_POWER_SAVE_ON_AC = 0;
-        SOUND_POWER_SAVE_ON_BAT = 1;
-        RUNTIME_PM_ON_AC = "on";
-        RUNTIME_PM_ON_BAT = "auto";
-      };
-    };
-
-  services.udev.path = [
-    pkgs.coreutils # for chgrp
-  ];
-  services.udev.extraRules = pkgs.lib.mkMerge [
-    # autosuspend USB devices
-    ''ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"''
-    # autosuspend PCI devices
-    ''ACTION=="add", SUBSYSTEM=="pci", TEST=="power/control", ATTR{power/control}="auto"''
-    ''
-    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video %S%p/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w %S%p/brightness"
-    ''
-  ];
 
   # Supposedly better for the SSD.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
