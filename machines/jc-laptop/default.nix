@@ -7,6 +7,14 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  networking = {
+    hostName = "jc-laptop";
+
+    # Enable wireless (SSID-related stuff is in secrets.nix)
+    wireless.enable = true;
+    interfaces.wlp0s20f3.useDHCP = true;
+  };
+
   # Boot
   #
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
