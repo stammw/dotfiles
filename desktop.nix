@@ -9,10 +9,6 @@
     libinput.enable = true;
     videoDrivers = [ "modesetting" "nvidia" ];
 
-    desktopManager = {
-      xterm.enable = false;
-    };
-
     displayManager = {
       defaultSession = "none+i3";
 
@@ -29,7 +25,6 @@
         i3blocks
         rofi
         polybar
-        signal-desktop
         feh
       ];
     };
