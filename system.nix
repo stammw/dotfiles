@@ -17,7 +17,7 @@
 
   boot = {
     # Kernel Version
-    kernelPackages = pkgs.linuxPackages_5_8;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     blacklistedKernelModules = ["nouveau"];
 
