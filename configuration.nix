@@ -15,20 +15,13 @@
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
     bluez
-    exa
-    fd
-    fzf
-    gcc
     git
-    htop
     light
     nerdfonts
-    ripgrep
     sshfs
     vim
     wget
     zsh
-    unzip
   ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 

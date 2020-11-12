@@ -34,7 +34,7 @@ in {
       rust-analyzer
 
       # C
-      clang
+      #clang
       binutils
       coreutils
       gcc
