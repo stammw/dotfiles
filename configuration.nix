@@ -22,8 +22,9 @@
     vim
     wget
     zsh
+    zsh-completions
   ];
-  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+  environment.pathsToLink = [ "/libexec"  "/share/zsh" ];
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override {
