@@ -45,7 +45,12 @@ in {
       python-language-server
     ];
 
+    # XDG
+    # Alacritty
     xdg.configFile."alacritty/alacritty.yml".source = configs/alacritty.yml;
+    # I3
+    xdg.configFile."i3/config".source = configs/i3/config;
+    xdg.configFile."i3/xrandr.sh".source = configs/i3/xrandr.sh;
 
     # Shell
     programs.zsh = {
