@@ -5,6 +5,7 @@
     [
       <nixos-hardware/dell/xps/15-9500>
       (modulesPath + "/installer/scan/not-detected.nix")
+      ../../desktop.nix
     ];
 
   networking = {
@@ -39,6 +40,24 @@
     [ { device = "/dev/disk/by-uuid/88ba4245-3149-484c-a95e-b756455357ab"; } ];
 
   boot.initrd.luks.devices.vg.device = "/dev/disk/by-uuid/912bc249-1e34-4b8f-a2ae-9de8b7de3630";
+
+  # Bluetooth
+  hardware = {
+    bluetooth = {
+      enable = true;
+      config = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
+
+    nvidia.prime = {
+      offload.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
 
   # Power saving
   #

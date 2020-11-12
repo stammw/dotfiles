@@ -20,6 +20,7 @@ in {
       emacs
       evince
       discord
+      signal-desktop
 
       # CLI tools
       fzf
