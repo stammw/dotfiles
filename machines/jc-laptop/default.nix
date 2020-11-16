@@ -18,27 +18,31 @@
 
   # Boot
   #
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    initrd.kernelModules = [ "dm-snapshot" ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+  }
 
   # Partitions
   #
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
       options = [ "noatime" "nodiratime" "discard" ];
     };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/24A0-126E";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/24A0-126E";
       fsType = "vfat";
     };
+  };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/88ba4245-3149-484c-a95e-b756455357ab"; } ];
 
+  # Encrypted "nixos" volume
   boot.initrd.luks.devices.vg.device = "/dev/disk/by-uuid/912bc249-1e34-4b8f-a2ae-9de8b7de3630";
 
   # Bluetooth
