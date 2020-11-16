@@ -51,6 +51,8 @@ in {
       # Java
       openjdk11
       android-studio
+      android-udev-rules
+      androidenv.androidPkgs_9_0.platform-tools
       jdt-language-server
     ];
 
