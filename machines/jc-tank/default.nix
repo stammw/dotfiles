@@ -20,7 +20,7 @@
   #   initrd.kernelModules = [ "dm-snapshot" ];
   #   kernelModules = [ "kvm-intel" ];
   #   extraModulePackages = [ ];
-  # }
+  # };
 
   # Partitions
   #
