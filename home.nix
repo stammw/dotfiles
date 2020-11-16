@@ -24,12 +24,14 @@ in {
       signal-desktop
 
       # CLI tools
-      fzf
       exa
       fd
+      fzf
+      htop
+      ncdu
+      pbzip2
       ripgrep
       unzip
-      htop
 
       # Rust <3
       rustup
