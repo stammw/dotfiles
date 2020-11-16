@@ -1,10 +1,11 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/nix-community/home-manager.git";
     ref = "release-20.09";
   };
 
+  jdt-language-server = pkgs.callPackage ./packages/jdt-language-server.nix {};
 in {
   imports = [
     (import "${home-manager}/nixos")
@@ -44,6 +45,11 @@ in {
       python37Full
       python37Packages.ipython
       python-language-server
+
+      # Java
+      openjdk11
+      android-studio
+      jdt-language-server
     ];
 
     # XDG
