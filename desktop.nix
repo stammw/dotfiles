@@ -20,7 +20,7 @@
         i3lock-fancy
         i3blocks
         rofi
-        polybar
+        polybarFull
         feh
       ];
     };
