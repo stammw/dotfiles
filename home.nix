@@ -71,6 +71,9 @@ in {
       enable = true;
       enableCompletion = true;
       enableAutosuggestions = true;
+      initExtra = ''
+        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      '';
       zplug = {
         enable = true;
         plugins = [
@@ -78,8 +81,11 @@ in {
           { name = "junegunn/fzf"; tags = [ "use:'shell/*.zsh'" ]; }
         ];
       };
+      defaultKeymap = "vicmd";
     };
-
+    programs.bash = {
+      enable = true;
+    };
     programs.starship.enable = true;
     programs.command-not-found.enable = true;
 
