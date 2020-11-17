@@ -63,6 +63,14 @@
     };
   };
 
+  services.xserver = {
+    videoDrivers = [ "modesetting" "nvidia" ];
+    autoLogin = {
+      enable = true;
+      user = "jc";
+    };
+  };
+
   # Power saving
   #
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

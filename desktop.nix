@@ -7,15 +7,11 @@
     layout = "fr";
 
     libinput.enable = true;
-    videoDrivers = [ "modesetting" "nvidia" ];
+    ## Set this from machine file
+    ## videoDrivers = [ "modesetting" "nvidia" ];
 
     displayManager = {
       defaultSession = "none+i3";
-
-      autoLogin = {
-        enable = true;
-        user = "jc";
-      };
     };
 
     windowManager.i3 = {

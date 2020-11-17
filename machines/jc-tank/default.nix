@@ -38,4 +38,8 @@
 
   swapDevices =
     [ { device = "/dev/disk/by-label/swap"; } ];
+
+  services.xserver = {
+    videoDrivers = [ "intel" ];
+  };
 }
