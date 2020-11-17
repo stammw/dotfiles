@@ -9,18 +9,20 @@
 
   networking = {
     hostName = "jc-tank";
-    interfaces.enp0s0f0.useDHCP = true;
+    interfaces.enp2s0.useDHCP = true;
   };
 
+  services.sshd.enable = true;
+
   # Boot
-  #
-  # TODO
-  # boot = {
-  #   initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  #   initrd.kernelModules = [ "dm-snapshot" ];
-  #   kernelModules = [ "kvm-intel" ];
-  #   extraModulePackages = [ ];
-  # };
+  boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+  };
 
   # Partitions
   #
@@ -41,5 +43,20 @@
 
   services.xserver = {
     videoDrivers = [ "intel" ];
+  };
+
+  hardware.opengl = {
+    enable = true;
+
+    extraPackages = with pkgs; [
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+    driSupport = true;
+  };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 }
