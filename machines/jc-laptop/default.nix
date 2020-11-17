@@ -65,7 +65,7 @@
 
   services.xserver = {
     videoDrivers = [ "modesetting" "nvidia" ];
-    autoLogin = {
+    displayManager.autoLogin = {
       enable = true;
       user = "jc";
     };
