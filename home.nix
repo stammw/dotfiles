@@ -69,7 +69,16 @@ in {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
+      enableAutosuggestions = true;
+      zplug = {
+        enable = true;
+        plugins = [
+          { name = "zsh-users/zsh-syntax-highlighting"; }
+          { name = "junegunn/fzf"; tags = [ "use:'shell/*.zsh'" ]; }
+        ];
+      };
     };
+
     programs.starship.enable = true;
     programs.command-not-found.enable = true;
 
