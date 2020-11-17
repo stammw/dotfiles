@@ -32,6 +32,7 @@ in {
       pbzip2
       ripgrep
       unzip
+      gnupg
 
       # Rust <3
       rustup
