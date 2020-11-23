@@ -62,6 +62,7 @@ in {
     xdg.configFile."alacritty/alacritty.yml".source = configs/alacritty.yml;
     # I3
     xdg.configFile."i3/config".source = configs/i3/config;
+    xdg.configFile."i3/wallpaper.jpg".source = configs/i3/wallpaper.jpg;
     xdg.configFile."i3/xrandr.sh".source = configs/i3/xrandr.sh;
     xdg.configFile."polybar/config".source = configs/polybar/config;
     xdg.configFile."polybar/launch.sh".source = configs/polybar/launch.sh;
