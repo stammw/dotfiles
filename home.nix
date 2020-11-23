@@ -33,6 +33,10 @@ in {
       ripgrep
       unzip
       gnupg
+      xclip
+
+      # Networking
+      openfortivpn
 
       # Rust <3
       rustup
@@ -43,6 +47,7 @@ in {
       binutils
       coreutils
       gcc
+      ccls
 
       # Python
       python37Full
@@ -55,6 +60,9 @@ in {
       android-udev-rules
       androidenv.androidPkgs_9_0.platform-tools
       jdt-language-server
+
+      # Virtualisation
+      qemu
     ];
 
     # XDG
