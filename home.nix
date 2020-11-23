@@ -88,9 +88,9 @@ in {
         plugins = [
           { name = "zsh-users/zsh-syntax-highlighting"; }
           { name = "junegunn/fzf"; tags = [ "use:'shell/*.zsh'" ]; }
+          { name = "softmoth/zsh-vim-mode"; }
         ];
       };
-      defaultKeymap = "vicmd";
     };
     programs.bash = {
       enable = true;
