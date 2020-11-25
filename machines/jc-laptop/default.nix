@@ -23,6 +23,11 @@
     initrd.kernelModules = [ "dm-snapshot" ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
+
+    # EFI
+    loader.grub.device = "nodev";
+    loader.grub.efiSupport = true;
+    loader.grub.enableCryptodisk = true;
   };
 
   # Partitions

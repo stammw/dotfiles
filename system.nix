@@ -40,8 +40,5 @@
     # Use the GRUB 2 boot loader.
     loader.grub.enable = true;
     loader.grub.version = 2;
-    loader.grub.device = "nodev";
-    loader.grub.efiSupport = true;
-    loader.grub.enableCryptodisk = true;
   };
 }
