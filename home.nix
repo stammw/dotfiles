@@ -89,6 +89,7 @@ in {
       enableAutosuggestions = true;
       initExtra = ''
         . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+        eval "$(direnv hook zsh)"
       '';
       zplug = {
         enable = true;
@@ -104,6 +105,8 @@ in {
     };
     programs.starship.enable = true;
     programs.command-not-found.enable = true;
+
+    programs.direnv.enable = true;
 
     # Editor
     home.file.".doom.d/init.el".source = configs/emacs/init.el;
