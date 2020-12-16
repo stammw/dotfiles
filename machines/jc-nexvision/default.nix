@@ -8,11 +8,9 @@
     ];
 
   networking = {
-    hostName = "jc-tank";
+    hostName = "jc-nexvision";
     interfaces.enp2s0.useDHCP = true;
   };
-
-  services.sshd.enable = true;
 
   # Boot
   boot = {
@@ -23,10 +21,8 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
-    # EFI
-    loader.grub.device = "nodev";
-    loader.grub.efiSupport = true;
-    loader.grub.enableCryptodisk = true;
+    # MBR
+    loader.grub.device = "/dev/sda";
   };
 
   # Partitions
@@ -35,11 +31,6 @@
     "/" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
-      options = [ "noatime" "nodiratime" "discard" ];
-    };
-    "/boot" = {
-      device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
     };
   };
 
@@ -47,7 +38,7 @@
     [ { device = "/dev/disk/by-label/swap"; } ];
 
   services.xserver = {
-    videoDrivers = [ "intel" ];
+    videoDrivers = [ "nvidia" ];
   };
 
   hardware.opengl = {
@@ -59,9 +50,5 @@
       libvdpau-va-gl
     ];
     driSupport = true;
-  };
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 }
