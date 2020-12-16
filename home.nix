@@ -22,6 +22,8 @@ in {
       evince
       discord
       signal-desktop
+      chromium
+      gimp
 
       # CLI tools
       exa
@@ -30,6 +32,7 @@ in {
       htop
       ncdu
       pbzip2
+      ranger
       ripgrep
       unzip
       gnupg
@@ -37,6 +40,7 @@ in {
 
       # Networking
       openfortivpn
+      tshark
 
       # Rust <3
       rustup
