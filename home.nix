@@ -52,6 +52,8 @@ in {
       coreutils
       gcc
       ccls
+      bear
+      gnumake
 
       # Python
       python37Full
