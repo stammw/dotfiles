@@ -125,6 +125,17 @@
    :i "<f5>" #'(lambda () (interactive) (evil-escape) (rustic-save-all-and-recompile))
    :i "<f5>" #'(lambda () (interactive) (evil-escape) (rustic-save-all-and-compile)))
 
+ (:after ccls
+  :map (c-mode-map c++-mode-map)
+  "M-h"    #'(lambda () (interactive) (ccls-navigate "U"))
+  "M-j"    #'(lambda () (interactive) (ccls-navigate "R"))
+  "M-k"    #'(lambda () (interactive) (ccls-navigate "L"))
+  "M-l"    #'(lambda () (interactive) (ccls-navigate "D"))
+
+  :n "C-h"    #'beginning-of-line-text
+  :n "C-j"    #'(lambda () (interactive) (next-line 5))
+  :n "C-k"    #'(lambda () (interactive) (previous-line 5))
+  :n "C-l"    #'end-of-line)
 
  :leader
  :desc "Find file in project"  "SPC"  #'helm-projectile
