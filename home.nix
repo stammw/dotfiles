@@ -63,6 +63,7 @@ in {
 
       # Virtualisation
       qemu
+      docker-compose
     ];
 
     # XDG
