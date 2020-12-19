@@ -11,9 +11,7 @@
   networking = {
     hostName = "jc-laptop";
 
-    # Enable wireless (SSID-related stuff is in secrets.nix)
-    wireless.enable = true;
-    interfaces.wlp0s20f3.useDHCP = true;
+    networkmanager.enable = true;
   };
 
   # Boot

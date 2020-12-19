@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./secrets.nix
     ./system.nix
     ./machines/current.nix
     ./home.nix
