@@ -6,6 +6,10 @@ let
   };
 
   jdt-language-server = pkgs.callPackage ./packages/jdt-language-server.nix {};
+
+  gcc = pkgs.gcc.overrideAttrs ( oldAttrs: rec { meta.priority = 5; });
+  clang_11 = pkgs.clang.overrideAttrs ( oldAttrs: rec { meta.priority = 6; });
+
 in {
   imports = [
     (import "${home-manager}/nixos")
@@ -47,7 +51,8 @@ in {
       rust-analyzer
 
       # C
-      #clang
+      clang_11
+      clang-tools
       binutils
       coreutils
       gcc
