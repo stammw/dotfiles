@@ -112,6 +112,7 @@ in {
     programs.command-not-found.enable = true;
 
     programs.direnv.enable = true;
+    programs.direnv.enableNixDirenvIntegration = true;
 
     # Editor
     home.file.".doom.d/init.el".source = configs/emacs/init.el;
