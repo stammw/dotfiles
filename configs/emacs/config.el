@@ -69,6 +69,7 @@
   (setq org-journal-file-format "%Y%m-%W.org"))
 
 (after! lsp-mode
+  (setq lsp-file-watch-threshold 100000)
   (setq lsp-signature-auto-activate nil))
 
 (after! lsp-python-ms
