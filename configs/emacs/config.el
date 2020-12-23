@@ -70,6 +70,31 @@
 (add-hook! rustic-mode
   (rainbow-delimiters-mode 1))
 
+;; Prevent better-jumper and evil-jump to add jumps to buffers in other perspectives.
+;; Clear initial jump list when creating new perspective.
+(add-hook! 'persp-created-functions
+  (defun +worspaces-mark-creating (persp &rest _)
+    (setq better-jumper-creating-perspective (persp-name persp))))
+
+(add-hook! 'persp-activated-functions
+  (defun +worspaces-clear-initial-jump-list (&rest _)
+    (let ((persp (get-current-persp)))
+      (when (and persp (eq better-jumper-creating-perspective (persp-name persp)))
+        (setq better-jumper-creating-perspective nil)
+        (better-jumper-clear-jumps)))))
+
+;; Prevent adding jumps from other perspectives.
+(defun doom-prevent-persp-jump (orig-fn &rest args)
+  "Ensure ORIG-FN doesn't set any jump points in buffers from other perspectives."
+  (unless (and (markerp (car args))
+               (not (+workspace-contains-buffer-p (marker-buffer (car args)))))
+    (apply orig-fn args)))
+
+(add-hook! better-jumper-mode
+  (defun doom-prevent-persp-jump-h ()
+    (advice-add #'evil-set-jump :around #'doom-prevent-persp-jump)
+    (advice-add #'better-jumper-set-jump :around #'doom-prevent-persp-jump)))
+
 (map!
  ;; Window Movements
  "M-h"    #'evil-window-left

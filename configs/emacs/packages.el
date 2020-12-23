@@ -3,6 +3,9 @@
 
 ;;; Examples:
 
+;; Use the latest version.
+(package! better-jumper :pin "e25c634f6a")
+
 (package! evil-snipe :disable t)
 (package! evil-escape)
 (package! adoc-mode)
