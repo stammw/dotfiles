@@ -20,25 +20,6 @@
 (after! forge
   (add-to-list 'forge-alist '("gitlab.fb.int" "gitlab.fb.int/api/v4" "gitlab.fb.int" forge-gitlab-repository)))
 
-;; (add-hook! 'prog-mode #'rainbow-delimiters-mode)
-
-;; Always compile from project root, and save all files
-(defun save-all-and-compile ()
-  "Automate compile workflow."
-  (interactive)
-  (save-some-buffers 1)
-  (if (get-buffer-process "*compilation*")
-      (kill-compilation))
-  (projectile-compile-project 'projectile-project-compilation-cmd))
-
-(defun save-all-and-recompile ()
-  "Automate compile workflow."
-  (interactive)
-  (save-some-buffers 1)
-  (if (get-buffer-process "*compilation*")
-      (kill-compilation))
-  (recompile))
-
 (defun rustic-save-all-and-compile ()
   "Automate compile workflow."
   (interactive)
@@ -101,10 +82,10 @@
  :nv "C-k"    #'(lambda () (interactive) (previous-line 5))
  :nv "C-l"    #'end-of-line
 
- :m "<f6>" #'save-all-and-compile
- :m "<f5>" #'save-all-and-recompile
- :i "<f5>" #'(lambda () (interactive) (evil-escape) (save-all-and-recompile))
- :i "<f5>" #'(lambda () (interactive) (evil-escape) (save-all-and-compile))
+ :m "<f6>" #'(lambda () (interactive) (projectile-compile-project t))
+ :m "<f5>" #'(lambda () (interactive) (projectile-repeat-last-command nil))
+ :i "<f6>" #'(lambda () (interactive) (evil-escape) (projectile-compile-project t))
+ :i "<f5>" #'(lambda () (interactive) (evil-escape) (projectile-repeat-last-command nil))
 
  (:map compilation-mode-map
    :nv "h" #'evil-backward-char)
