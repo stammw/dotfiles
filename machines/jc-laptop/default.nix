@@ -59,6 +59,11 @@
       };
     };
 
+    opengl = {
+      driSupport32Bit = true;
+      enable = true;
+    };
+    nvidia.modesetting.enable = true;
     nvidia.prime = {
       offload.enable = true;
       intelBusId = "PCI:0:2:0";
@@ -67,7 +72,7 @@
   };
 
   services.xserver = {
-    videoDrivers = [ "modesetting" "nvidia" ];
+    videoDrivers = [ "nvidia" ];
     displayManager.autoLogin = {
       enable = true;
       user = "jc";
@@ -82,6 +87,7 @@
     "options snd_hda_intel power_save=1"
     # enable wifi power saving (keep uapsd off to maintain low latencies)
     "options iwlwifi power_save=1 uapsd_disable=1"
+    "options nvidia NVreg_DynamicPowerManagement=0x02"
   ];
 
   services.tlp = {

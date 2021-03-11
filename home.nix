@@ -28,6 +28,7 @@ in {
       signal-desktop
       chromium
       gimp
+      steam
 
       # CLI tools
       exa
