@@ -59,7 +59,8 @@
   (setq lsp-signature-auto-activate nil))
 
 (after! lsp-python-ms
-  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+  (setq lsp-python-ms-executable (executable-find "python-language-server"))
+  (set-lsp-priority! 'mspyls 1))
 
 ;; Lang C / C++
 (setq-default ff-search-directories '("." "../src" "../include" "../include/*"))

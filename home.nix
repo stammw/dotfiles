@@ -63,6 +63,7 @@ in {
       # Python
       python37Full
       python37Packages.ipython
+      black
       python-language-server
 
       # Java
