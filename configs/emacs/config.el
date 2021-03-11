@@ -43,6 +43,11 @@
   (setq evil-escape-excluded-major-modes (list 'magit-status-mode 'magit-refs-mode 'magit-log-mode)))
 
 (add-hook! org-mode (org-bullets-mode 1))
+(add-hook! org-mode
+  (org-bullets-mode 1)
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-allow-creating-parent-nodes 'confirm))
 
 (after! org-journal
   (setq org-journal-file-type 'weekly)
