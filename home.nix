@@ -77,6 +77,7 @@ in {
       # Virtualisation
       qemu
       docker-compose
+      vagrant
     ];
 
     # XDG
