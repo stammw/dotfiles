@@ -54,6 +54,8 @@ in {
       # Rust <3
       rustup
       rust-analyzer
+      # deps
+      pkg-config
 
       # C
       clang_11
