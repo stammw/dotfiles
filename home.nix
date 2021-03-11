@@ -43,6 +43,10 @@ in {
       gnupg
       xclip
 
+      # HW
+      lm_sensors
+      powertop
+
       # Networking
       openfortivpn
       tshark
