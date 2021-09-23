@@ -114,6 +114,8 @@ in {
       enableCompletion = true;
       enableAutosuggestions = true;
       initExtraFirst = ''
+        EDITOR=vim
+
         function zvm_config() {
             ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
             ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
