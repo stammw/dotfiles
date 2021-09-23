@@ -81,9 +81,7 @@ in {
       jdt-language-server
 
       # Virtualisation
-      qemu
       docker-compose
-      vagrant
     ];
 
     # XDG

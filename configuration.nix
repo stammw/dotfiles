@@ -20,7 +20,6 @@ in
     allowUnfree = true;
   };
   programs.steam.enable = true;
-  virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
