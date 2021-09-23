@@ -30,6 +30,7 @@
   sound.enable = true;
   hardware = {
     pulseaudio = {
+      support32Bit = true;
       enable = true;
       package = pkgs.pulseaudioFull;
       extraModules = [ pkgs.pulseaudio-modules-bt ];

@@ -52,13 +52,18 @@
   hardware = {
     bluetooth = {
       enable = true;
-      config = {
+      package = pkgs.bluezFull;
+      settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";
         };
       };
     };
+  };
+  services.ofono.enable = true;
 
+  # Graphics
+  hardware = {
     opengl = {
       driSupport32Bit = true;
       enable = true;
