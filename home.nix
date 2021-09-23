@@ -145,6 +145,18 @@ in {
       userEmail = "jc.begue@pm.me";
     };
 
+    gtk = {
+      enable = true;
+      iconTheme = {
+        name = "Arc";
+        package = pkgs.arc-icon-theme;
+      };
+      theme = {
+        name = "Arc-Dark";
+        package = pkgs.arc-theme;
+      };
+    };
+
     programs.firefox = {
       enable = true;
       profiles."default".settings = {

@@ -26,6 +26,9 @@
     };
   };
 
+  # Gnome stuff
+  programs.dconf.enable = true;
+
   # Enable sound.
   sound.enable = true;
   hardware = {
