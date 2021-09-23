@@ -107,31 +107,48 @@ in {
     xdg.configFile."polybar/launch.sh".source = configs/polybar/launch.sh;
 
     # Shell
+    programs.starship.enable = true;
+    programs.command-not-found.enable = true;
     programs.zsh = {
       enable = true;
       enableCompletion = true;
       enableAutosuggestions = true;
-      initExtra = ''
-        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-        eval "$(direnv hook zsh)"
+      initExtraFirst = ''
+        function zvm_config() {
+            ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+            ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+            ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+        }
+
+        function zvm_after_init() {
+          source "$(fzf-share)/key-bindings.zsh"
+          source "$(fzf-share)/completion.zsh"
+
+          bindkey "^[." insert-last-word
+        }
+
+        # The following should not be necessary as `programs.direnv.enableZshIntegration`
+        # should do it (but it doesn't)...
+        eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
       '';
       zplug = {
         enable = true;
         plugins = [
           { name = "zsh-users/zsh-syntax-highlighting"; }
-          { name = "junegunn/fzf"; tags = [ "use:'shell/*.zsh'" ]; }
-          { name = "softmoth/zsh-vim-mode"; }
+          { name = "jeffreytse/zsh-vi-mode"; }
         ];
       };
     };
+
     programs.bash = {
       enable = true;
     };
-    programs.starship.enable = true;
-    programs.command-not-found.enable = true;
 
-    programs.direnv.enable = true;
-    programs.direnv.enableNixDirenvIntegration = true;
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = false;
+    };
 
     # Editor
     home.file.".doom.d/init.el".source = configs/emacs/init.el;
@@ -174,6 +191,8 @@ in {
         # https://support.mozilla.org/en-US/kb/new-tab-page-show-hide-and-customize-top-sites#w_how-do-i-turn-the-new-tab-page-off
         "browser.newtabpage.enabled" = false;
         "browser.newtab.url" = "about:blank";
+        # Don't ask for session resume on startup
+        "browser.sessionstore.resume_session_once" = false;
         # Disable Activity Stream
         # https://wiki.mozilla.org/Firefox/Activity_Stream
         "browser.newtabpage.activity-stream.enabled" = false;
@@ -236,6 +255,7 @@ in {
         "datareporting.healthreport.uploadEnabled" = false;
         "datareporting.healthreport.service.enabled" = false;
         "datareporting.policy.dataSubmissionEnabled" = false;
+        "firefox.enableAdobeFlash" = false;
       };
     };
   };
