@@ -26,12 +26,19 @@ in {
       evince
       discord
       signal-desktop
-      chromium
+      #chromium
       gimp
       steam
+      # freecad
+      # libreoffice
+      qalculate-gtk
+      skype
+      gnome3.nautilus
+      arc-theme
 
       # CLI tools
       exa
+      bat
       fd
       fzf
       htop
@@ -42,6 +49,8 @@ in {
       unzip
       gnupg
       xclip
+      libqalculate
+      unzip
 
       # HW
       lm_sensors
@@ -54,8 +63,11 @@ in {
       # Rust <3
       rustup
       rust-analyzer
+      exercism
+
       # deps
       pkg-config
+      openssl.dev
 
       # C
       clang_11
@@ -74,11 +86,11 @@ in {
       python-language-server
 
       # Java
-      openjdk11
-      android-studio
-      android-udev-rules
-      androidenv.androidPkgs_9_0.platform-tools
-      jdt-language-server
+      # openjdk11
+      # android-studio
+      # android-udev-rules
+      # androidenv.androidPkgs_9_0.platform-tools
+      # jdt-language-server
 
       # Virtualisation
       docker-compose

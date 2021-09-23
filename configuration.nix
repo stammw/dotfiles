@@ -35,7 +35,9 @@ in
     nvidia-offload
     glxinfo
     vulkan-tools
+    ldacbt
   ];
+
   environment.pathsToLink = [ "/libexec"  "/share/zsh" ];
 
   hardware.nvidia.prime = {
