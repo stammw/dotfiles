@@ -10,7 +10,6 @@
 
   networking = {
     hostName = "jc-laptop";
-
     networkmanager.enable = true;
   };
 
@@ -86,6 +85,12 @@
 
   # Power saving
   #
+
+  # Goto hibernation when closing the laptop
+  services.logind = {
+    lidSwitch = "hibernate";
+  };
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   boot.extraModprobeConfig = pkgs.lib.mkMerge [
     # idle audio card after one second
