@@ -32,7 +32,6 @@ in
     vim
     wget
     zsh
-    zsh-completions
     nvidia-offload
     glxinfo
     vulkan-tools
