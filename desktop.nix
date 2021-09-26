@@ -23,11 +23,16 @@
         polybarFull
         feh
       ];
+      extraSessionCommands = ''
+        eval $(${pkgs.gnome3.gnome-keyring}/bin/gnome-keyring-daemon --daemonize --components=ssh,secrets)
+        export SSH_AUTH_SOCK
+      '';
     };
   };
 
   # Gnome stuff
   programs.dconf.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   # Enable sound.
   sound.enable = true;
