@@ -106,6 +106,10 @@ in {
     xdg.configFile."polybar/config".source = configs/polybar/config;
     xdg.configFile."polybar/launch.sh".source = configs/polybar/launch.sh;
 
+    programs.rofi = {
+      theme = "Arc-Dark";
+    };
+
     # Shell
     programs.starship.enable = true;
     programs.command-not-found.enable = true;
