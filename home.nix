@@ -34,6 +34,7 @@ in {
       qalculate-gtk
       skype
       gnome3.nautilus
+      gnome3.gnome-screenshot
       arc-theme
 
       # CLI tools
