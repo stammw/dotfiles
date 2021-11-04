@@ -4,6 +4,7 @@ let
     url = "https://github.com/nix-community/home-manager.git";
     ref = "release-21.05";
   };
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 
   jdt-language-server = pkgs.callPackage ./packages/jdt-language-server.nix {};
 
@@ -30,11 +31,12 @@ in {
       gimp
       steam
       # freecad
-      # libreoffice
+      libreoffice
       qalculate-gtk
       skype
       gnome3.nautilus
       gnome3.gnome-screenshot
+      gnome3.eog
       arc-theme
 
       # CLI tools
@@ -52,6 +54,7 @@ in {
       xclip
       libqalculate
       unzip
+      unstable.btop
 
       # HW
       lm_sensors
