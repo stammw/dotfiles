@@ -103,7 +103,8 @@
  :i "<f5>" #'(lambda () (interactive) (evil-escape) (projectile-repeat-last-command nil))
 
  (:map compilation-mode-map
-   :nv "h" #'evil-backward-char)
+  :nv "h" #'evil-backward-char
+  :nv "q" #'kill-this-buffer)
 
  (:after evil-org
    :map evil-org-mode-map
