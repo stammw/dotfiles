@@ -17,6 +17,9 @@
   (dolist (item '(".cargo" ".mypy_cache"))
     (add-to-list 'projectile-globally-ignored-directories item)))
 
+(dolist (item '((rustic-compile-command . "cargo build --features=full")))
+  (add-to-list 'safe-local-variable-values item))
+
 (after! forge
   (add-to-list 'forge-alist '("gitlab.fb.int" "gitlab.fb.int/api/v4" "gitlab.fb.int" forge-gitlab-repository)))
 
