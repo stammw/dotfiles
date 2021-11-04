@@ -62,7 +62,10 @@
 
 (after! lsp-mode
   (setq lsp-file-watch-threshold 100000)
-  (setq lsp-signature-auto-activate nil))
+  (setq lsp-signature-auto-activate nil)
+  (setq lsp-ui-doc-show-with-cursor nil)
+  (setq lsp-headerline-breadcrumb-enable t)
+  (setq lsp-enable-symbol-highlighting nil))
 
 (after! lsp-python-ms
   (setq lsp-python-ms-executable (executable-find "python-language-server"))
