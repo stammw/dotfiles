@@ -55,6 +55,7 @@ in {
       libqalculate
       unzip
       unstable.btop
+      v4l-utils
 
       # HW
       lm_sensors
@@ -98,7 +99,9 @@ in {
 
       # Virtualisation
       docker-compose
-    ];
+    ] ++ (with pkgs.gst_all_1; [
+      gstreamer gstreamer.dev gst-plugins-base gst-plugins-good gst-plugins-bad
+    ]);
 
     # XDG
     # Alacritty

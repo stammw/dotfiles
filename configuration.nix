@@ -43,6 +43,8 @@ in
     glxinfo
     vulkan-tools
     ldacbt
+    usbutils
+    ethtool
   ];
 
   environment.pathsToLink = [ "/libexec"  "/share/zsh" ];
