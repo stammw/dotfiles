@@ -173,4 +173,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 for_window [class="^.*"] border pixel 1
 new_window 1pixel
 
+for_window [class="Nautilus" instance="file_progress"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Qalculate-gtk"] floating enable
+
 exec_always feh --bg-center ~/pictures/wallpapers/Landscape-night-sky-mountain-wallpapers-1920x1200.jpg
