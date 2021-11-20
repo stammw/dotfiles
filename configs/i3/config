@@ -84,6 +84,8 @@ bindsym $mod+egrave workspace 7
 bindsym $mod+underscore workspace 8
 bindsym $mod+ccedilla workspace 9
 bindsym $mod+agrave workspace 10
+bindsym $mod+parenright workspace 11
+bindsym $mod+equal workspace 12
 
 # move focused container to workspace
 bindsym $mod+Shift+ampersand move container to workspace 1
@@ -96,6 +98,8 @@ bindsym $mod+Shift+egrave move container to workspace 7
 bindsym $mod+Shift+underscore move container to workspace 8
 bindsym $mod+Shift+ccedilla move container to workspace 9
 bindsym $mod+Shift+agrave move container to workspace 10
+bindsym $mod+Shift+parenright move container to workspace 11
+bindsym $mod+Shift+equal move container to workspace 12
 
 bindsym $mod+Ctrl+h move container to output left
 bindsym $mod+Ctrl+l move container to output right
