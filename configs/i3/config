@@ -5,6 +5,8 @@ font pango:DejaVu Sans Mono 7
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+workspace 12 output eDP-1
+
 # start a terminal
 bindsym $mod+Return exec alacritty
 bindsym $mod+w exec firefox
@@ -176,5 +178,7 @@ new_window 1pixel
 for_window [class="Nautilus" instance="file_progress"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Qalculate-gtk"] floating enable
+
+assign [class="Chromium-browser" instance="web.whatsapp.com"] workspace 12
 
 exec_always feh --bg-center ~/pictures/wallpapers/Landscape-night-sky-mountain-wallpapers-1920x1200.jpg

@@ -27,7 +27,7 @@ in {
       evince
       discord
       signal-desktop
-      #chromium
+      chromium
       gimp
       steam
       # freecad
@@ -186,6 +186,10 @@ in {
         package = pkgs.arc-theme;
       };
     };
+
+    # In-browser apps
+    home.file.".local/share/applications/whatsapp.desktop".source = apps/whatsapp.desktop;
+    home.file.".local/bin/whatsapp.app".source = apps/whatsapp.app;
 
     programs.firefox = {
       enable = true;
