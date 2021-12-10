@@ -10,4 +10,4 @@ else
     done
 fi
 
-feh --bg-center ~/.config/i3/wallpaper.jpg
+feh --bg-fill ~/.config/i3/wallpaper.jpg
