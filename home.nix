@@ -118,15 +118,22 @@ in {
     };
 
     # Shell
+    home = {
+      sessionPath = [ "$HOME/.emacs.d/bin" ];
+      sessionVariables = {
+        EDITOR = "vim";
+      };
+    };
     programs.starship.enable = true;
     programs.command-not-found.enable = true;
     programs.zsh = {
       enable = true;
       enableCompletion = true;
       enableAutosuggestions = true;
+      profileExtra = ''
+        source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+      '';
       initExtraFirst = ''
-        EDITOR=vim
-
         function zvm_config() {
             ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
             ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
