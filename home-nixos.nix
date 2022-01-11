@@ -45,12 +45,12 @@ in {
           # Virtualization
           vagrant
         ];
+        programs.zsh = {
+          profileExtra = ''
+            source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+          '';
+        };
     })
   ];
 
-  programs.zsh = {
-    profileExtra = ''
-      source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
-    '';
-  };
 }
