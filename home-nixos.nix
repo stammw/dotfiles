@@ -20,23 +20,37 @@ in {
   home-manager.useGlobalPkgs = true;
 
   home-manager.users.jc = lib.mkMerge [
-      (import ./home.nix { config=config; lib=lib; pkgs=pkgs; })
+      (import ./home-common.nix { config=config; lib=lib; pkgs=pkgs; })
       ({
         home.packages = with pkgs; [
-          python37Full
-          python37Packages.ipython
-          black
-          python-language-server
+          # GUI tools
+          steam
+          libreoffice
+
+          # CLI tools
           binutils
           coreutils
           gcc
-          vagrant
 
-          gnome3.nautilus
-          gnome3.gnome-screenshot
-          gnome3.eog
+          # Networking
+          openfortivpn
+
+          # Learn
           exercism
+
+          # Python
+          python37Full
+          python37Packages.ipython
+
+          # Virtualization
+          vagrant
         ];
     })
   ];
+
+  programs.zsh = {
+    profileExtra = ''
+      source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+    '';
+  };
 }

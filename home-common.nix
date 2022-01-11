@@ -10,37 +10,37 @@
     signal-desktop
     chromium
     gimp
-    steam
-    # freecad
-    libreoffice
     qalculate-gtk
     skype
     slack-dark
     arc-theme
 
-    # CLI tools
+    # Gnome
+    gnome3.nautilus
+    gnome3.gnome-screenshot
+    gnome3.eog
+    evince
+    arc-theme
+
+    # # CLI tools
     exa
     bat
     fd
     fzf
     htop
     ncdu
-    pbzip2
     ranger
     ripgrep
-    unzip
     gnupg
     xclip
     libqalculate
     unzip
-    v4l-utils
 
     # HW
     lm_sensors
     powertop
 
     # Networking
-    openfortivpn
     tshark
 
     # Rust <3
@@ -59,6 +59,8 @@
     gnumake
 
     # Python
+    black
+    python-language-server
 
     nodePackages.bash-language-server
 
@@ -86,6 +88,7 @@
   xdg.configFile."polybar/launch.sh".source = configs/polybar/launch.sh;
 
   programs.rofi = {
+    enable = true;
     theme = "Arc-Dark";
   };
 
@@ -102,9 +105,6 @@
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    profileExtra = ''
-      source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
-    '';
     initExtraFirst = ''
       function zvm_config() {
           ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
