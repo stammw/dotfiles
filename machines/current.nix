@@ -1,1 +1,0 @@
-jc-laptop/default.nix
