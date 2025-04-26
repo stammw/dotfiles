@@ -11,7 +11,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable networking
-  networking.hostName = "jc-laptop"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Set your time zone.

@@ -15,7 +15,9 @@
       nixosConfigurations.jc-laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          { networking.hostName = "jc-laptop"; }
           ./configuration.nix
+          ./graphical.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -29,6 +31,7 @@
       nixosConfigurations.jc-byebrain = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          { networking.hostName = "jc-byebrain"; }
           ./configuration.nix
           ./graphical.nix
           home-manager.nixosModules.home-manager
