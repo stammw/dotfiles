@@ -29,6 +29,7 @@
     slurp
     wl-clipboard
     mako
+    blueman
   ];
 
   services.xserver = {
@@ -53,6 +54,50 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.extraConfig = {
+      "10-bluez" = {
+        "monitor.bluez.properties" = {
+          "bluez5.enable-sbc-xq" = true;
+          "bluez5.enable-hw-volume" = true;
+          "bluez5.roles" = [
+            "hfp_ag"
+            "a2dp_sink"
+            "a2dp_source"
+          ];
+        };
+        "monitor.bluez.rules" = [
+          {
+            "matches" = [
+              {
+                ## This matches all bluetooth devices.
+                "device.name" = "~bluez_card.*";
+              }
+            ];
+            "actions" = {
+              "update-props" = {
+                "bluez5.auto-connect" = [
+                  "a2dp_sink"
+                  "a2dp_source"
+                ];
+                "bluez5.hw-volume" = [
+                  "a2dp_sink"
+                  "a2dp_source"
+                ];
+                "bluez5.a2dp.ldac.quality" = "auto";
+                "bluez5.a2dp.aac.bitratemode" = 0;
+                "bluez5.a2dp.opus.pro.application" = "audio";
+                "bluez5.a2dp.opus.pro.bidi.application" = "audio";
+              };
+            };
+          }
+        ];
+      };
+      "11-bluetooth-policy" = {
+        "wireplumber.settings" = {
+          "bluetooth.autoswitch-to-headset-profile" = false;
+        };
+      };
+    };
   };
 
   # Enable the gnome-keyring secrets vault.

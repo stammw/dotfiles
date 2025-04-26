@@ -57,14 +57,13 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware = {
-    # actually we want to use Pipewire apparently
-    #   pulseaudio = {
-    #     enable = true;
-    #     support32Bit = true;
-    # };
     bluetooth = {
       enable = true;
       powerOnBoot = true;
+      settings.General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
     };
   };
 
