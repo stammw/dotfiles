@@ -87,6 +87,7 @@
     woeusb-ng
     ntfs3g
     pciutils
+    usbutils
   ];
 
   security.pam.loginLimits = [

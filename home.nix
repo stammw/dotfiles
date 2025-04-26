@@ -25,6 +25,7 @@
     ripgrep
     zoxide
     wally-cli
+    markdownlint-cli2
 
     rustup
 
@@ -54,6 +55,7 @@
 
     python3
     tree-sitter
+    hunspell
   ];
 
   # TODO: this should be moved to `graphical.nix` but is not working there
