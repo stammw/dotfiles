@@ -89,6 +89,7 @@ in
         "${modifier}+shift+f" = "floating toggle";
         "${modifier}+shift+grave" =
           "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png";
+        "${modifier}+p" = "exec 1password --quick-access";
       };
 
       colors = {
@@ -111,6 +112,8 @@ in
 
     extraConfig = ''
       workspace 1
+      for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+      for_window [class="1Password"] floating enable
     '';
   };
 
