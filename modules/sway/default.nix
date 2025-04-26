@@ -135,7 +135,6 @@ in
       export NO_AT_BRIDGE=1
       export XKB_DEFAULT_LAYOUT=us
       export XKB_DEFAULT_VARIANT=altgr-intl
-      sway
     '';
   };
 
