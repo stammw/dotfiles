@@ -59,16 +59,13 @@
   # TODO: this should be moved to `graphical.nix` but is not working there
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.arc-theme;
-      name = "Arc-Darker";
-    };
   };
   dconf = {
     enable = true;
     settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
+        gtk-theme = "Adwaita-dark";
       };
     };
   };
