@@ -85,7 +85,8 @@ in
       keybindings = lib.mkOptionDefault {
         "${modifier}+t" = "exec ${terminal}";
         "${modifier}+shift+r" = "exec ${pkgs.kanshi}/bin/kanshictl reload";
-        "${modifier}+w" = "exec ${pkgs.google-chrome}/bin/google-chrome-stable";
+        "${modifier}+w" = "exec ${pkgs.firefox}/bin/firefox";
+        "${modifier}+shift+f" = "floating toggle";
         "${modifier}+shift+grave" =
           "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png";
       };
