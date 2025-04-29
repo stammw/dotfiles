@@ -6,7 +6,10 @@ let
 in
 {
   programs.starship.enable = true;
-  programs.command-not-found.enable = true;
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
   programs.fzf.enable = true;
 
   programs.fish = {
