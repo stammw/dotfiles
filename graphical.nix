@@ -60,7 +60,6 @@
           "bluez5.enable-sbc-xq" = true;
           "bluez5.enable-hw-volume" = true;
           "bluez5.roles" = [
-            "hfp_ag"
             "a2dp_sink"
             "a2dp_source"
           ];
