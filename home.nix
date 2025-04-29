@@ -90,6 +90,22 @@
 
   fonts.fontconfig.enable = true;
 
+  xdg.desktopEntries.evince = {
+    name = "Evince PDF viewer";
+    exec = "${pkgs.evince}/bin/evince";
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = "evince.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
+    };
+  };
+
   # Do not change this
   home.stateVersion = "24.05";
 
