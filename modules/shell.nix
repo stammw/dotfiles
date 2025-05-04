@@ -2,6 +2,7 @@
 let
   shellAliases = {
     vim = "nvim";
+    ls = "${pkgs.lsd}/bin/lsd";
   };
 in
 {

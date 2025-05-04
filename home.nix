@@ -17,6 +17,7 @@
     # CLI
     bat
     fd
+    lsd
     htop
     lazygit
     nil
