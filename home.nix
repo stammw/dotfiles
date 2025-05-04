@@ -27,6 +27,7 @@
     zoxide
     wally-cli
     markdownlint-cli2
+    zbar
     loupe
 
     rustup
@@ -38,6 +39,7 @@
     nautilus
     signal-desktop
     ledger-live-desktop
+    cheese
 
     font-awesome
     powerline-fonts

@@ -89,6 +89,7 @@
     usbutils
 
     desktop-file-utils
+    rclone
   ];
 
   security.pam.loginLimits = [
