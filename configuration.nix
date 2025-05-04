@@ -87,6 +87,8 @@
     ntfs3g
     pciutils
     usbutils
+
+    desktop-file-utils
   ];
 
   security.pam.loginLimits = [

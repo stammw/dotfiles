@@ -27,6 +27,7 @@
     zoxide
     wally-cli
     markdownlint-cli2
+    loupe
 
     rustup
 
@@ -100,10 +101,31 @@
     enable = true;
     defaultApplications = {
       "application/pdf" = "evince.desktop";
+      "image/jpeg" = "org.gnome.Loupe.desktop";
+      "image/png" = "org.gnome.Loupe.desktop";
+      "image/gif" = "org.gnome.Loupe.desktop;";
+      "image/webp" = "org.gnome.Loupe.desktop;";
+      "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
+    };
+    associations.removed = {
+      "application/pdf" = "google-chrome.desktop";
+      "application/rdf+xml" = "google-chrome.desktop";
+      "application/rss+xml" = "google-chrome.desktop";
+      "application/xhtml+xml" = "google-chrome.desktop";
+      "application/xhtml_xml" = "google-chrome.desktop";
+      "application/xml" = "google-chrome.desktop";
+      "image/gif" = "google-chrome.desktop;";
+      "image/jpeg" = "google-chrome.desktop;";
+      "image/png" = "google-chrome.desktop;";
+      "image/webp" = "google-chrome.desktop;";
+      "text/html" = "google-chrome.desktop";
+      "text/xml" = "google-chrome.desktop";
+      "x-scheme-handler/http" = "google-chrome.desktop";
+      "x-scheme-handler/https" = "google-chrome.desktop";
     };
   };
 
