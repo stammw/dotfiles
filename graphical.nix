@@ -21,6 +21,8 @@
     XKB_DEFAULT_OPTIONS = "compose:menu,level3:ralt_switch";
   };
 
+  services.libinput.enable = true;
+
   environment.systemPackages = with pkgs; [
     swaylock
     swaybg
@@ -39,7 +41,10 @@
     desktopManager.gnome.enable = true;
   };
 
-  services.libinput.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+
+  programs.dconf.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -98,11 +103,6 @@
       };
     };
   };
-
-  # Enable the gnome-keyring secrets vault.
-  # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
-  programs.dconf.enable = true;
 
   programs._1password.enable = true;
   programs._1password-gui = {
