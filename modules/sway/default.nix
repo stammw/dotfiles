@@ -2,6 +2,8 @@
   pkgs,
   lib,
   config,
+  inputs,
+  anyrun_pkg,
   ...
 }:
 let
@@ -86,6 +88,7 @@ in
         "${modifier}+t" = "exec ${terminal}";
         "${modifier}+shift+r" = "exec ${pkgs.kanshi}/bin/kanshictl reload";
         "${modifier}+w" = "exec ${pkgs.firefox}/bin/firefox";
+        "${modifier}+d" = "exec ${pkgs.anyrun}/bin/anyrun";
         "${modifier}+shift+f" = "floating toggle";
         "${modifier}+shift+grave" =
           "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png";
