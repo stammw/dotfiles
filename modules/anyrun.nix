@@ -45,6 +45,7 @@
               background: transparent;
               box-shadow: none;
               border: none;
+              color: #ffffff;
             }
 
             list#main {
@@ -99,5 +100,5 @@
             }
             */
     '';
- };
-};
+  };
+}

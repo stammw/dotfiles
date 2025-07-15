@@ -25,6 +25,15 @@
         #   applications = anyrun.packages.${prev.system}.applications;
         # };
       };
+      linux-firmware-overlay = final: prev: {
+        linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: {
+          version = "20250708";
+          src = final.pkgs.fetchzip {
+            url = "https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-20250708.tar.xz";
+            hash = "sha256-aQdEl9+7zbNqWSII9hjRuPePvSfWVql5u5TIrGsa+Ao=";
+          };
+        });
+      };
     in
     {
       nixosConfigurations.jc-laptop = nixpkgs.lib.nixosSystem {
@@ -50,7 +59,10 @@
           (
             { config, pkgs, ... }:
             {
-              nixpkgs.overlays = [ anyrun-overlay ];
+              nixpkgs.overlays = [
+                anyrun-overlay
+                linux-firmware-overlay
+              ];
             }
           )
           ./configuration.nix
