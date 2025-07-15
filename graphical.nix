@@ -34,11 +34,13 @@
     blueman
   ];
 
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
-    desktopManager.gnome.enable = true;
+  services.displayManager = {
+    gdm.enable = true;
+    gdm.wayland = true;
+  };
+
+  services.desktopManager = {
+    gnome.enable = true;
   };
 
   services.gnome.gnome-keyring.enable = true;
