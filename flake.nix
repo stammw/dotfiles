@@ -20,7 +20,7 @@
     }:
     let
       claude-desktop-overlay = final: prev: {
-        claude-desktop = claude-desktop.packages.${prev.system}.claude-desktop;
+        claude-desktop = claude-desktop.packages.${prev.stdenv.hostPlatform.system}.claude-desktop;
       };
       linux-firmware-overlay = final: prev: {
         linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: {

@@ -29,7 +29,7 @@
     lazygit
     nil
     nixd
-    nixfmt-rfc-style
+    nixfmt
     ripgrep
     zoxide
     wally-cli
@@ -118,8 +118,8 @@
   };
   programs.git = {
     enable = true;
-    userEmail = "jc.begue+git@pm.me";
-    userName = "Jean-Christophe BEGUE";
+    settings.user.email = "jc.begue+git@pm.me";
+    settings.user.name = "Jean-Christophe BEGUE";
   };
 
   fonts.fontconfig.enable = true;

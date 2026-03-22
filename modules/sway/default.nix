@@ -146,42 +146,45 @@ in
     enable = true;
     systemdTarget = "";
 
-    profiles = {
-      undocked = {
-        outputs = [
+    settings = [
+      {
+        profile.name = "undocked";
+        profile.outputs = [
           {
             criteria = "eDP-1";
             status = "enable";
             mode = "1920x1200";
           }
         ];
-      };
-      docked_one_screen = {
-        outputs = [
+      }
+      {
+        profile.name = "docked_one_screen";
+        profile.outputs = [
           {
             criteria = "eDP-1";
             status = "disable";
           }
           {
-            status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
+            status = "enable";
             mode = "5120x2160";
-
           }
         ];
-      };
-      bye_brain_one = {
-        outputs = [
+      }
+      {
+        profile.name = "bye_brain_one";
+        profile.outputs = [
           {
-            status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
+            status = "enable";
             position = "0,0";
             mode = "5120x2160";
           }
         ];
-      };
-      bye_brain_stacked = {
-        outputs = [
+      }
+      {
+        profile.name = "bye_brain_stacked";
+        profile.outputs = [
           {
             criteria = "Dell Inc. DELL U4021QW BCLM9H3";
             status = "enable";
@@ -190,15 +193,16 @@ in
             transform = "90";
           }
           {
-            status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
+            status = "enable";
             position = "0,2283";
             mode = "5120x2160";
           }
         ];
-      };
-      bye_brain_full = {
-        outputs = [
+      }
+      {
+        profile.name = "bye_brain_full";
+        profile.outputs = [
           {
             criteria = "Dell Inc. DELL U4021QW BCLM9H3";
             status = "enable";
@@ -207,15 +211,16 @@ in
             transform = "90";
           }
           {
-            status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
+            status = "enable";
             position = "0,2283";
             mode = "5120x2160";
           }
         ];
-      };
-      docked = {
-        outputs = [
+      }
+      {
+        profile.name = "docked";
+        profile.outputs = [
           {
             criteria = "eDP-1";
             status = "disable";
@@ -228,13 +233,13 @@ in
             transform = "90";
           }
           {
-            status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
+            status = "enable";
             position = "0,2283";
             mode = "5120x2160";
           }
         ];
-      };
-    };
+      }
+    ];
   };
 }
