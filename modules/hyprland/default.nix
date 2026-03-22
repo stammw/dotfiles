@@ -69,7 +69,7 @@ in
         "$mod, T, exec, ${terminal}"
         "$mod, Return, exec, ${terminal}"
         "$mod, W, exec, ${pkgs.firefox}/bin/firefox"
-        "$mod, D, exec, ${pkgs.anyrun}/bin/anyrun"
+        "$mod, D, exec, ${pkgs.fuzzel}/bin/fuzzel"
         "$mod, Q, killactive,"
         "$mod SHIFT, F, togglefloating,"
         "$mod, P, exec, 1password --quick-access"

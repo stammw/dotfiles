@@ -12,7 +12,7 @@
 
   imports = [
     ./modules/alacritty
-    ./modules/anyrun.nix
+    ./modules/fuzzel.nix
     ./modules/shell.nix
     ./modules/sway
     ./modules/hyprland

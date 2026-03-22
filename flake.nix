@@ -4,11 +4,6 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     claude-desktop = {
       url = "github:k3d3/claude-desktop-linux-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,17 +15,10 @@
       self,
       nixpkgs,
       home-manager,
-      anyrun,
       claude-desktop,
       ...
     }:
     let
-      anyrun-overlay = final: prev: {
-        anyrun = anyrun.packages.${prev.system}.anyrun-with-all-plugins;
-        # plugins = {
-        #   applications = anyrun.packages.${prev.system}.applications;
-        # };
-      };
       claude-desktop-overlay = final: prev: {
         claude-desktop = claude-desktop.packages.${prev.system}.claude-desktop;
       };
@@ -53,7 +41,6 @@
             { config, pkgs, ... }:
             {
               nixpkgs.overlays = [
-                anyrun-overlay
                 claude-desktop-overlay
               ];
             }
@@ -78,7 +65,6 @@
             { config, pkgs, ... }:
             {
               nixpkgs.overlays = [
-                anyrun-overlay
                 claude-desktop-overlay
                 linux-firmware-overlay
               ];
@@ -104,7 +90,6 @@
             { config, pkgs, ... }:
             {
               nixpkgs.overlays = [
-                anyrun-overlay
                 claude-desktop-overlay
               ];
             }
