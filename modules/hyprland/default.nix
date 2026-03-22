@@ -6,11 +6,75 @@
 let
   terminal = "${pkgs.alacritty}/bin/alacritty";
   backgroundPath = "Pictures/background.jpg";
+  power-menu = pkgs.writeShellScript "power-menu" ''
+    choice=$(echo -e "🔒 Lock\n🚪 Logout\n🔄 Restart\n⏻ Shutdown" | ${pkgs.fuzzel}/bin/fuzzel --dmenu --prompt "")
+    case $choice in
+      "🔒 Lock") hyprlock ;;
+      "🚪 Logout") hyprctl dispatch exit ;;
+      "🔄 Restart") systemctl reboot ;;
+      "⏻ Shutdown") systemctl poweroff ;;
+    esac
+  '';
 in
 {
   imports = [
     ./waybar.nix
   ];
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      general = {
+        hide_cursor = true;
+        grace = 5;
+      };
+      background = {
+        monitor = "";
+        path = "${config.home.homeDirectory}/${backgroundPath}";
+        blur_passes = 3;
+        blur_size = 8;
+      };
+      input-field = {
+        monitor = "";
+        size = "300, 60";
+        outline_thickness = 2;
+        dots_size = 0.25;
+        dots_spacing = 0.15;
+        outer_color = "rgb(45, 47, 90)";
+        inner_color = "rgb(30, 30, 46)";
+        font_color = "rgb(205, 214, 244)";
+        check_color = "rgb(203, 166, 247)";
+        fail_color = "rgb(243, 139, 168)";
+        fade_on_empty = true;
+        placeholder_text = "";
+        position = "0, -20";
+        halign = "center";
+        valign = "center";
+      };
+    };
+  };
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+      };
+      listener = [
+        {
+          timeout = 300;
+          on-timeout = "loginctl lock-session";
+        }
+        {
+          timeout = 600;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+      ];
+    };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -123,7 +187,7 @@ in
         "$mod, F, fullscreen, 0"
 
         # Session
-        "$mod SHIFT, E, exit,"
+        "$mod SHIFT, E, exec, ${power-menu}"
       ];
 
       # Move/resize with mouse
