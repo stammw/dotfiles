@@ -15,6 +15,7 @@
     ./modules/anyrun.nix
     ./modules/shell.nix
     ./modules/sway
+    ./modules/hyprland
   ];
 
   # Packages that should be installed to the user profile.

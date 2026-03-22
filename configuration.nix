@@ -121,6 +121,8 @@
     wrapperFeatures.gtk = true;
   };
 
+  programs.hyprland.enable = true;
+
   # Do not change
   system.stateVersion = "24.11"; # Did you read the comment?
 }

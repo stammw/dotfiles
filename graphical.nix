@@ -33,6 +33,7 @@
     mako
     blueman
     claude-desktop
+    hyprlock
   ];
 
   programs.noisetorch.enable = true;
@@ -55,6 +56,7 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
+      xdg-desktop-portal-hyprland
     ];
   };
 

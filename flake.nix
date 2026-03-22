@@ -95,5 +95,43 @@
           }
         ];
       };
+
+      nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          { networking.hostName = "nixos-vm"; }
+          (
+            { config, pkgs, ... }:
+            {
+              nixpkgs.overlays = [
+                anyrun-overlay
+                claude-desktop-overlay
+              ];
+            }
+          )
+          ./configuration.nix
+          ./graphical.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.jc = import ./home.nix;
+            home-manager.backupFileExtension = "hm-backup";
+          }
+          {
+            users.users.jc.initialPassword = "test";
+            virtualisation.vmVariant = {
+              virtualisation = {
+                memorySize = 4096;
+                cores = 4;
+                qemu.options = [
+                  "-device virtio-vga-gl"
+                  "-display gtk,gl=on"
+                ];
+              };
+            };
+          }
+        ];
+      };
     };
 }
