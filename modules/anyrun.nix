@@ -2,7 +2,6 @@
 {
   programs.anyrun = {
     enable = true;
-    package = pkgs.anyrun;
     config = {
       x = {
         fraction = 0.5;
@@ -11,13 +10,13 @@
         fraction = 0.3;
       };
       width = {
-        fraction = 0.3;
+        fraction = 0.4;
       };
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "top";
       hidePluginInfo = false;
-      closeOnClick = false;
+      closeOnClick = true;
       showResultsImmediately = true;
       maxEntries = null;
 
@@ -30,75 +29,77 @@
     };
 
     extraCss = ''
-            #window {
-              background-color: rgba(0, 0, 0, 0);
-              font-size: 20px;
-              color: #ffffff;
-            }
+      * {
+        font-size: 28px;
+        color: #cdd6f4;
+      }
 
-            box#main {
-              background-color: rgba(38, 38, 38, 0.8);
-            }
+      window {
+        background-color: transparent;
+      }
 
-            entry#entry {
-              min-height: 40px;
-              background: transparent;
-              box-shadow: none;
-              border: none;
-              color: #ffffff;
-            }
+      box.main {
+        background-color: transparent;
+        padding: 0;
+      }
 
-            list#main {
-              color: #FFFFFF;
-              background-color: rgba(0, 0, 0, 0);
-            }
+      entry {
+        min-height: 64px;
+        padding: 16px 24px;
+        background: rgba(30, 30, 46, 0.9);
+        border-radius: 16px;
+        box-shadow: none;
+        border: 1px solid rgba(69, 71, 90, 0.6);
+        color: #cdd6f4;
+        font-size: 32px;
+        caret-color: #cdd6f4;
+      }
 
-            #plugin {
-              background: transparent;
-              padding-bottom: 5px;
-            }
+      box.matches {
+        background: transparent;
+        padding: 12px 0;
+        margin-top: 16px;
+      }
 
-            #match {
-              padding: 2.5px;
-            }
+      box.plugin {
+        background: transparent;
+        padding: 8px 16px;
+      }
 
-            #match:selected {
-              background: transparent;
-              border-right: 4px solid #7e9cd8;
-              border-left: 4px solid #7e9cd8;
-              border-radius: 4px;
-            }
+      box.plugin box.info {
+        margin-bottom: 12px;
+        margin-left: 8px;
+      }
 
-            #match:selected label#info {
-              animation: fade 0.1s linear
-            }
+      box.match {
+        padding: 14px 24px;
+        margin: 4px 12px;
+        border-radius: 8px;
+      }
 
-            @keyframes fade {
-              0% {
-                color: transparent;
-              }
+      list row:selected,
+      listview row:selected {
+        background: rgba(69, 71, 90, 0.5);
+        background-color: rgba(69, 71, 90, 0.5);
+        border-left: 4px solid #cba6f7;
+        border-radius: 8px;
+      }
 
-              100% {
-                color: #b0b0b0;
-              }
-            }
-      /*
-            #match label#info {
-              color: transparent;
-            }
+      list row:selected box.match,
+      listview row:selected box.match {
+        background: transparent;
+        background-color: transparent;
+        border: none;
+      }
 
-            #match:hover {
-              background: transparent;
-            }
+      box.match label.title {
+        font-size: 28px;
+      }
 
-            label#match-desc {
-              font-size: 20px;
-            }
-
-            label#plugin {
-              font-size: 14px;
-            }
-            */
+      box.match label.description {
+        font-size: 20px;
+        color: #a6adc8;
+      }
     '';
   };
 }
