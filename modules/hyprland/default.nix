@@ -120,6 +120,9 @@ in
 
         # Fullscreen
         "$mod, F, fullscreen, 0"
+
+        # Session
+        "$mod SHIFT, E, exit,"
       ];
 
       # Move/resize with mouse

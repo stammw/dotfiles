@@ -78,6 +78,7 @@
     grim
     kanshi
     mako
+    playerctl
     slurp
     swaybg
     swaylock
