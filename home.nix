@@ -53,16 +53,17 @@
     # GUI
     cheese
     deluge-gtk
+    fragments
     firefox
-    freecad
     google-chrome
     ledger-live-desktop
     loupe
     nautilus
     obsidian
-    pavucontrol
     signal-desktop
     vlc
+    pwvucontrol
+    claude-code
 
     # Fonts
     font-awesome
@@ -81,6 +82,8 @@
     swaylock
     wl-clipboard
     wev
+    solaar
+    wine
 
     python3
     tree-sitter

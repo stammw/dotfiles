@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    claude-desktop = {
+      url = "github:k3d3/claude-desktop-linux-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
   outputs =
     inputs@{
@@ -16,6 +21,7 @@
       nixpkgs,
       home-manager,
       anyrun,
+      claude-desktop,
       ...
     }:
     let
@@ -24,6 +30,9 @@
         # plugins = {
         #   applications = anyrun.packages.${prev.system}.applications;
         # };
+      };
+      claude-desktop-overlay = final: prev: {
+        claude-desktop = claude-desktop.packages.${prev.system}.claude-desktop;
       };
       linux-firmware-overlay = final: prev: {
         linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: {
@@ -40,6 +49,15 @@
         system = "x86_64-linux";
         modules = [
           { networking.hostName = "jc-laptop"; }
+          (
+            { config, pkgs, ... }:
+            {
+              nixpkgs.overlays = [
+                anyrun-overlay
+                claude-desktop-overlay
+              ];
+            }
+          )
           ./configuration.nix
           ./graphical.nix
           home-manager.nixosModules.home-manager
@@ -61,6 +79,7 @@
             {
               nixpkgs.overlays = [
                 anyrun-overlay
+                claude-desktop-overlay
                 linux-firmware-overlay
               ];
             }

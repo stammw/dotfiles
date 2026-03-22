@@ -32,7 +32,10 @@
     wl-clipboard
     mako
     blueman
+    claude-desktop
   ];
+
+  programs.noisetorch.enable = true;
 
   services.displayManager = {
     gdm.enable = true;
@@ -61,6 +64,33 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    extraConfig.pipewire."99-echo-cancel" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-echo-cancel";
+          args = {
+            "library.name" = "aec/libspa-aec-webrtc";
+            "monitor.mode" = true;
+            "capture.props" = {
+              "node.name" = "echo-cancel-capture";
+              "node.description" = "Echo-Cancel Capture";
+            };
+            "source.props" = {
+              "node.name" = "echo-cancel-source";
+              "node.description" = "Echo-Cancel Source";
+            };
+            "sink.props" = {
+              "node.name" = "echo-cancel-sink";
+              "node.description" = "Echo-Cancel Sink";
+            };
+            "playback.props" = {
+              "node.name" = "echo-cancel-playback";
+              "node.description" = "Echo-Cancel Playback";
+            };
+          };
+        }
+      ];
+    };
     wireplumber.extraConfig = {
       "10-bluez" = {
         "monitor.bluez.properties" = {

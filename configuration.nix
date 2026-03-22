@@ -59,6 +59,9 @@
     ];
     shell = pkgs.fish;
     packages = with pkgs; [ ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbPoRHy8oR+v5vGeGkR5TN3/jYq/RiA0nDiF3J6ci+7 jc.begue@pm.me"
+    ];
   };
 
   nixpkgs.config = {
@@ -81,7 +84,6 @@
     git
     ripgrep
     fd
-    pavucontrol
 
     woeusb-ng
     ntfs3g
@@ -90,6 +92,8 @@
 
     desktop-file-utils
     rclone
+    wireguard-tools
+    protonvpn-gui
   ];
 
   security.pam.loginLimits = [
@@ -100,6 +104,8 @@
       value = 1;
     }
   ];
+
+  networking.firewall.checkReversePath = false;
 
   fonts.packages = with pkgs; [
     font-awesome
