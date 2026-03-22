@@ -130,6 +130,23 @@
           }
         ];
       };
+      "50-default-sink" = {
+        "monitor.alsa.rules" = [
+          {
+            "matches" = [
+              {
+                "node.name" = "alsa_output.usb-CA_CA_DacMagic_200M_2.0-00.iec958-stereo";
+              }
+            ];
+            "actions" = {
+              "update-props" = {
+                "priority.driver" = 2000;
+                "priority.session" = 2000;
+              };
+            };
+          }
+        ];
+      };
       "11-bluetooth-policy" = {
         "wireplumber.settings" = {
           "bluetooth.autoswitch-to-headset-profile" = false;
