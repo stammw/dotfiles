@@ -5,7 +5,9 @@
 }:
 let
   terminal = "${pkgs.alacritty}/bin/alacritty";
-  backgroundPath = "Pictures/background.jpg";
+  wallpaperDir = "Pictures/wallpapers";
+  horizontalWallpaper = "pillars.png";
+  verticalWallpaper = "vertical.jpg";
   power-menu = pkgs.writeShellScript "power-menu" ''
     choice=$(echo -e "🔒 Lock\n🚪 Logout\n🔄 Restart\n⏻ Shutdown" | ${pkgs.fuzzel}/bin/fuzzel --dmenu --prompt "")
     case $choice in
@@ -30,7 +32,7 @@ in
       };
       background = {
         monitor = "";
-        path = "${config.home.homeDirectory}/${backgroundPath}";
+        path = "${config.home.homeDirectory}/${wallpaperDir}/${horizontalWallpaper}";
         blur_passes = 3;
         blur_size = 8;
       };
@@ -75,6 +77,11 @@ in
       ];
     };
   };
+
+  home.file."${wallpaperDir}/${horizontalWallpaper}".source = ../../wallpapers/${horizontalWallpaper};
+  home.file."${wallpaperDir}/${verticalWallpaper}".source = ../../wallpapers/${verticalWallpaper};
+  home.file."${wallpaperDir}/nebula_vertical.jpg".source = ../../wallpapers/nebula_vertical.jpg;
+
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -203,7 +210,9 @@ in
       ];
 
       exec-once = [
-        "${pkgs.swaybg}/bin/swaybg --output '*' -m fill --image '${config.home.homeDirectory}/${backgroundPath}'"
+        "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
+        "${pkgs.swaybg}/bin/swaybg --output 'DP-1' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${horizontalWallpaper}'"
+        "${pkgs.swaybg}/bin/swaybg --output 'DP-2' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${verticalWallpaper}'"
         "${pkgs.kanshi}/bin/kanshi"
         "${pkgs.waybar}/bin/waybar -c ${config.xdg.configHome}/waybar/hyprland-config -s ${config.xdg.configHome}/waybar/hyprland-style.css"
       ];

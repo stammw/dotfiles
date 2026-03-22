@@ -49,6 +49,7 @@
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
   security.pam.services.hyprlock = {};
 
   programs.dconf.enable = true;
@@ -58,6 +59,7 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
       xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
     ];
   };
 

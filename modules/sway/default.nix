@@ -26,7 +26,7 @@ in
   ];
 
   home.file."${backgroundPath}" = {
-    source = ./pillars.png;
+    source = ../../wallpapers/pillars.png;
   };
 
   wayland.windowManager.sway = {
