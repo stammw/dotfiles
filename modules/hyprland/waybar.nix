@@ -26,14 +26,10 @@ let
 
     "hyprland/workspaces" = {
       persistent-workspaces = {
-        "*" = 5;
+        "DP-1" = [ 1 2 3 4 5 6 7 ];
+        "DP-2" = [ 8 9 10 ];
       };
-      format = "{icon}";
-      format-icons = {
-        active = "󰮯";
-        default = "󰊠";
-        empty = "󰑊";
-      };
+      format = "{id}";
     };
 
     "hyprland/window" = {
