@@ -8,9 +8,9 @@ let
     height = 34;
     layer = "top";
     position = "top";
-    margin-top = 4;
-    margin-left = 8;
-    margin-right = 8;
+    margin-top = 0;
+    margin-left = 0;
+    margin-right = 0;
     spacing = 4;
 
     modules-left = [ "hyprland/workspaces" ];

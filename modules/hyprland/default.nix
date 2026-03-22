@@ -28,7 +28,7 @@ in
       };
 
       decoration = {
-        rounding = 0;
+        rounding = 8;
       };
 
       input = {
@@ -62,6 +62,7 @@ in
       env = [
         "XCURSOR_THEME,Bibata-Modern-Ice"
         "XCURSOR_SIZE,35"
+        "GTK_THEME,Adwaita:dark"
       ];
 
       bind = [
@@ -132,6 +133,7 @@ in
       ];
 
       windowrule = [
+        "border_size 0, match:workspace w[1]"
         "match:class org.pulseaudio.pavucontrol, float on"
         "match:class 1Password, float on"
       ];
