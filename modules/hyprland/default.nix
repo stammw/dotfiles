@@ -47,6 +47,18 @@ in
         disable_splash_rendering = true;
       };
 
+      animations = {
+        enabled = true;
+        animation = [
+          "windows, 1, 3, default"
+          "windowsOut, 1, 3, default, popin 80%"
+          "fade, 1, 3, default"
+          "workspaces, 1, 3, default"
+          "border, 1, 5, default"
+          "borderangle, 1, 4, default"
+        ];
+      };
+
       env = [
         "XCURSOR_THEME,Bibata-Modern-Ice"
         "XCURSOR_SIZE,35"

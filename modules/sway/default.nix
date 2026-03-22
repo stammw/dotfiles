@@ -178,9 +178,8 @@ in
           {
             status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
-            position = "0,2160";
+            position = "0,0";
             mode = "5120x2160";
-
           }
         ];
       };
@@ -189,16 +188,15 @@ in
           {
             criteria = "Dell Inc. DELL U4021QW BCLM9H3";
             status = "enable";
-            position = "0,0";
+            position = "5120,0";
             mode = "5120x2160";
             transform = "90";
           }
           {
             status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
-            position = "0,2160";
+            position = "0,2283";
             mode = "5120x2160";
-
           }
         ];
       };
@@ -207,14 +205,14 @@ in
           {
             criteria = "Dell Inc. DELL U4021QW BCLM9H3";
             status = "enable";
-            position = "0,0";
+            position = "5120,0";
             mode = "5120x2160";
             transform = "90";
           }
           {
             status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
-            position = "0,2160";
+            position = "0,2283";
             mode = "5120x2160";
           }
         ];
@@ -228,16 +226,15 @@ in
           {
             criteria = "Dell Inc. DELL U4021QW BCLM9H3";
             status = "enable";
-            position = "0,0";
+            position = "5120,0";
             mode = "5120x2160";
             transform = "90";
           }
           {
             status = "enable";
             criteria = "Dell Inc. DELL U4025QW CY6XM04";
-            position = "0,2160";
+            position = "0,2283";
             mode = "5120x2160";
-
           }
         ];
       };
