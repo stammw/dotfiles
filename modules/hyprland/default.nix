@@ -147,6 +147,7 @@ in
         "XCURSOR_THEME,Bibata-Modern-Ice"
         "XCURSOR_SIZE,35"
         "GTK_THEME,Adwaita:dark"
+        "ADW_DISABLE_PORTAL,1"
       ];
 
       bind = [
@@ -223,6 +224,7 @@ in
       ];
 
       exec-once = [
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME ADW_DISABLE_PORTAL"
         "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
         "${pkgs.swaybg}/bin/swaybg --output 'DP-1' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${horizontalWallpaper}'"
         "${pkgs.swaybg}/bin/swaybg --output 'DP-2' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${verticalWallpaper}'"

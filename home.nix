@@ -95,13 +95,20 @@
   # TODO: this should be moved to `graphical.nix` but is not working there
   gtk = {
     enable = true;
+    theme.name = "Adwaita";
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
   };
   dconf = {
     enable = true;
     settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        gtk-theme = "Adwaita-dark";
+        gtk-theme = "Adwaita";
       };
     };
   };
