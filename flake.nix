@@ -4,24 +4,15 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    claude-desktop = {
-      url = "github:k3d3/claude-desktop-linux-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
   };
   outputs =
     inputs@{
       self,
       nixpkgs,
       home-manager,
-      claude-desktop,
       ...
     }:
     let
-      claude-desktop-overlay = final: prev: {
-        claude-desktop = claude-desktop.packages.${prev.stdenv.hostPlatform.system}.claude-desktop;
-      };
       linux-firmware-overlay = final: prev: {
         linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: {
           version = "20250708";
@@ -37,14 +28,6 @@
         system = "x86_64-linux";
         modules = [
           { networking.hostName = "jc-laptop"; }
-          (
-            { config, pkgs, ... }:
-            {
-              nixpkgs.overlays = [
-                claude-desktop-overlay
-              ];
-            }
-          )
           ./configuration.nix
           ./graphical.nix
           home-manager.nixosModules.home-manager
@@ -65,7 +48,6 @@
             { config, pkgs, ... }:
             {
               nixpkgs.overlays = [
-                claude-desktop-overlay
                 linux-firmware-overlay
               ];
             }
@@ -86,14 +68,6 @@
         system = "x86_64-linux";
         modules = [
           { networking.hostName = "nixos-vm"; }
-          (
-            { config, pkgs, ... }:
-            {
-              nixpkgs.overlays = [
-                claude-desktop-overlay
-              ];
-            }
-          )
           ./configuration.nix
           ./graphical.nix
           home-manager.nixosModules.home-manager

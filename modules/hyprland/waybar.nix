@@ -22,12 +22,25 @@ let
       "pulseaudio"
       "group/status"
       "tray"
+      "custom/notification"
     ];
 
     "hyprland/workspaces" = {
       persistent-workspaces = {
-        "DP-1" = [ 1 2 3 4 5 6 7 ];
-        "DP-2" = [ 8 9 10 ];
+        "DP-1" = [
+          1
+          2
+          3
+          4
+          5
+          6
+          7
+        ];
+        "DP-2" = [
+          8
+          9
+          10
+        ];
       };
       format = "{id}";
     };
@@ -53,7 +66,12 @@ let
 
     "group/system" = {
       orientation = "inherit";
-      modules = [ "cpu" "memory" "disk" "temperature" ];
+      modules = [
+        "cpu"
+        "memory"
+        "disk"
+        "temperature"
+      ];
     };
 
     cpu = {
@@ -84,7 +102,10 @@ let
 
     "group/connectivity" = {
       orientation = "inherit";
-      modules = [ "network" "bluetooth" ];
+      modules = [
+        "network"
+        "bluetooth"
+      ];
     };
 
     network = {
@@ -109,7 +130,11 @@ let
       format = "{icon} {volume}%";
       format-muted = "󰖁 muted";
       format-icons = {
-        default = [ "󰕿" "󰖀" "󰕾" ];
+        default = [
+          "󰕿"
+          "󰖀"
+          "󰕾"
+        ];
         headphone = "󰋋";
       };
       tooltip-format = "{desc}\n{volume}%";
@@ -119,7 +144,11 @@ let
 
     "group/status" = {
       orientation = "inherit";
-      modules = [ "idle_inhibitor" "battery" "clock" ];
+      modules = [
+        "idle_inhibitor"
+        "battery"
+        "clock"
+      ];
     };
 
     idle_inhibitor = {
@@ -141,7 +170,19 @@ let
       format = "{icon} {capacity}%";
       format-charging = "󰂄 {capacity}%";
       format-plugged = "󰚥 {capacity}%";
-      format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+      format-icons = [
+        "󰂎"
+        "󰁺"
+        "󰁻"
+        "󰁼"
+        "󰁽"
+        "󰁾"
+        "󰁿"
+        "󰂀"
+        "󰂁"
+        "󰂂"
+        "󰁹"
+      ];
     };
 
     clock = {
@@ -161,6 +202,26 @@ let
     tray = {
       icon-size = 16;
       spacing = 8;
+    };
+
+    "custom/notification" = {
+      tooltip = false;
+      format = "{icon}";
+      format-icons = {
+        notification = "󰂚";
+        none = "󰂜";
+        dnd-notification = "󰂛";
+        dnd-none = "󰪑";
+        inhibited-notification = "󰂚";
+        inhibited-none = "󰂜";
+        dnd-inhibited-notification = "󰂛";
+        dnd-inhibited-none = "󰪑";
+      };
+      return-type = "json";
+      exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+      on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+      on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
+      escape = true;
     };
   };
 
@@ -193,7 +254,7 @@ let
     /* === Global === */
     * {
         font-family: "FiraCode Nerd Font", "Font Awesome 6 Free";
-        font-size: 13px;
+        font-size: 15px;
         min-height: 0;
         padding: 0;
         margin: 0;
@@ -232,7 +293,8 @@ let
     #idle_inhibitor,
     #battery,
     #clock,
-    #tray {
+    #tray,
+    #custom-notification {
         padding: 0 12px;
         margin: 4px 0;
         border-radius: 16px;
@@ -297,6 +359,11 @@ let
     }
 
     #tray {
+        margin-right: 0;
+    }
+
+    #custom-notification {
+        color: @mauve;
         margin-right: 4px;
     }
 

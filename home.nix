@@ -24,6 +24,7 @@
     alsa-utils
     bat
     fd
+    ffmpeg
     lsd
     htop
     lazygit
@@ -31,16 +32,15 @@
     nixd
     nixfmt
     ripgrep
-    zoxide
-    wally-cli
+    keymapp
     markdownlint-cli2
+    unzip
     zbar
 
     # Dev
     rustup
-    direnv
-    meson
     cmake
+    meson
     gcc
     pkg-config
 
@@ -48,8 +48,8 @@
     glib.dev
     gtk3.dev
     gtk4.dev
-    gexiv2
-    gexiv2.dev
+    gexiv2_0_16
+    gexiv2_0_16.dev
 
     # GUI
     cheese
@@ -60,11 +60,18 @@
     ledger-live-desktop
     loupe
     nautilus
+    obs-studio
     obsidian
-    signal-desktop
+    (signal-desktop.overrideAttrs (old: {
+      preFixup = (old.preFixup or "") + ''
+        wrapProgram $out/bin/signal-desktop \
+          --add-flags '--password-store="gnome-libsecret"'
+      '';
+    }))
     vlc
     pwvucontrol
     claude-code
+    tidal-hifi
 
     # Fonts
     font-awesome
@@ -77,11 +84,12 @@
     # Desktop tools
     grim
     kanshi
-    mako
+    libnotify
     playerctl
     slurp
     swaybg
     swaylock
+    tradingview
     wl-clipboard
     wev
     solaar
@@ -99,6 +107,7 @@
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };
+    gtk4.theme = null;
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };
@@ -114,6 +123,7 @@
   };
 
   home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Ice";
@@ -125,6 +135,7 @@
   };
   programs.git = {
     enable = true;
+    signing.format = null;
     settings.user.email = "jc.begue+git@pm.me";
     settings.user.name = "Jean-Christophe BEGUE";
   };
@@ -166,6 +177,12 @@
       "x-scheme-handler/http" = "google-chrome.desktop";
       "x-scheme-handler/https" = "google-chrome.desktop";
     };
+  };
+
+  services.udiskie = {
+    enable = true;
+    tray = "auto";
+    notify = true;
   };
 
   # Do not change this

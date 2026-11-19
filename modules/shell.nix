@@ -6,12 +6,24 @@ let
   };
 in
 {
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.starship.enable = true;
   programs.nix-index = {
     enable = true;
     enableFishIntegration = true;
   };
   programs.fzf.enable = true;
+
+  # The fish hook comes from this module: the direnv package stopped shipping
+  # its own (share/fish/vendor_conf.d/direnv.fish) with nixpkgs 2026-11-15.
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   programs.fish = {
     enable = true;

@@ -60,15 +60,9 @@ in
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
       listener = [
-        {
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
-        }
         {
           timeout = 600;
           on-timeout = "hyprctl dispatch dpms off";
@@ -82,156 +76,473 @@ in
   home.file."${wallpaperDir}/${verticalWallpaper}".source = ../../wallpapers/${verticalWallpaper};
   home.file."${wallpaperDir}/nebula_vertical.jpg".source = ../../wallpapers/nebula_vertical.jpg;
 
+  systemd.user.services.waybar-hyprland = {
+    Unit = {
+      Description = "Waybar for Hyprland";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.waybar}/bin/waybar -c ${config.xdg.configHome}/waybar/hyprland-config -s ${config.xdg.configHome}/waybar/hyprland-style.css";
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+  };
+
+  services.swaync = {
+    enable = true;
+    settings = {
+      positionX = "right";
+      positionY = "top";
+      layer = "overlay";
+      control-center-layer = "top";
+      layer-shell = true;
+      cssPriority = "application";
+      control-center-margin-top = 8;
+      control-center-margin-bottom = 8;
+      control-center-margin-right = 8;
+      control-center-width = 400;
+      notification-icon-size = 48;
+      notification-body-image-height = 100;
+      notification-body-image-width = 200;
+      timeout = 10;
+      timeout-low = 5;
+      timeout-critical = 0;
+      fit-to-screen = true;
+      notification-window-width = 400;
+      keyboard-shortcuts = true;
+      image-visibility = "when-available";
+      transition-time = 200;
+      hide-on-clear = false;
+      hide-on-action = true;
+      widgets = [
+        "inhibitors"
+        "title"
+        "dnd"
+        "notifications"
+      ];
+      widget-config = {
+        inhibitors = {
+          text = "Inhibitors";
+          button-text = "Clear All";
+          clear-all-button = true;
+        };
+        title = {
+          text = "Notifications";
+          clear-all-button = true;
+          button-text = "Clear All";
+        };
+        dnd = {
+          text = "Do Not Disturb";
+        };
+      };
+    };
+    style = ''
+      /* Override swaync CSS variables with Catppuccin Mocha */
+      :root {
+        --cc-bg: rgba(30, 30, 46, 0.95);
+        --noti-border-color: rgba(69, 71, 90, 0.8);
+        --noti-bg: 49, 50, 68;
+        --noti-bg-alpha: 1;
+        --noti-bg-darker: rgb(30, 30, 46);
+        --noti-bg-hover: rgb(69, 71, 90);
+        --noti-bg-focus: rgba(69, 71, 90, 0.6);
+        --noti-close-bg: rgb(69, 71, 90);
+        --noti-close-bg-hover: rgb(243, 139, 168);
+        --text-color: rgb(205, 214, 244);
+        --text-color-disabled: rgb(166, 173, 200);
+        --bg-selected: rgb(203, 166, 247);
+        --border-radius: 12px;
+        --border: 1px solid rgba(69, 71, 90, 0.8);
+        --notification-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+      }
+
+      * {
+        font-family: "FiraCode Nerd Font", "Font Awesome 6 Free";
+        font-size: 13px;
+      }
+
+      /* Notification popup */
+      .notification-row {
+        outline: none;
+      }
+
+      .notification-row:focus,
+      .notification-row:hover {
+        background: transparent;
+      }
+
+      .notification {
+        border-radius: var(--border-radius);
+        margin: 4px 8px;
+        padding: 0;
+        background: transparent;
+        box-shadow: var(--notification-shadow);
+      }
+
+      .notification-content {
+        background: rgba(var(--noti-bg), var(--noti-bg-alpha));
+        border-radius: var(--border-radius);
+        border: var(--border);
+        padding: 12px 16px;
+      }
+
+      .notification-default-action {
+        border-radius: var(--border-radius);
+        padding: 0;
+        margin: 0;
+        background: transparent;
+      }
+
+      .notification-default-action:hover {
+        background: var(--noti-bg-hover);
+        border-radius: var(--border-radius);
+      }
+
+      .close-button {
+        background: var(--noti-close-bg);
+        color: var(--text-color);
+        border-radius: 50%;
+        margin: 4px;
+        padding: 2px;
+        min-width: 24px;
+        min-height: 24px;
+      }
+
+      .close-button:hover {
+        background: var(--noti-close-bg-hover);
+        color: #11111b;
+      }
+
+      .summary {
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--text-color);
+        margin-bottom: 4px;
+      }
+
+      .body {
+        font-size: 13px;
+        color: var(--text-color-disabled);
+      }
+
+      .notification-action {
+        background: rgba(69, 71, 90, 0.6);
+        border-radius: 8px;
+        margin: 4px 2px;
+        padding: 6px 12px;
+        color: var(--text-color);
+      }
+
+      .notification-action:hover {
+        background: #cba6f7;
+        color: #11111b;
+      }
+
+      /* Critical notifications */
+      .critical .notification-content {
+        border: 1px solid rgba(243, 139, 168, 0.8);
+      }
+
+      /* Low urgency */
+      .low .notification-content {
+        border: 1px solid rgba(69, 71, 90, 0.4);
+      }
+
+      /* Control center */
+      .control-center {
+        background: var(--cc-bg);
+        border: 1px solid rgba(69, 71, 90, 0.8);
+        border-radius: var(--border-radius);
+      }
+
+      .control-center .notification-row .notification-background .notification {
+        margin: 4px 0;
+      }
+
+      .widget-title {
+        margin: 8px;
+        color: var(--text-color);
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .widget-title > button {
+        background: #cba6f7;
+        color: #11111b;
+        border-radius: 8px;
+        padding: 4px 12px;
+      }
+
+      .widget-title > button:hover {
+        background: #89b4fa;
+      }
+
+      .widget-dnd > switch:checked {
+        background: #cba6f7;
+      }
+
+      .widget-inhibitors > button {
+        background: #f38ba8;
+        color: #11111b;
+        border-radius: 8px;
+        padding: 4px 12px;
+      }
+
+      .widget-inhibitors > button:hover {
+        background: #eba0ac;
+      }
+    '';
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "lua";
 
     settings = {
-      "$mod" = "SUPER";
-
-      general = {
-        gaps_in = 4;
-        gaps_out = 0;
-        border_size = 2;
-        "col.active_border" = "rgb(285577)";
-        "col.inactive_border" = "rgb(222222)";
-        layout = "dwindle";
+      mod = {
+        _var = "SUPER";
       };
-
-      decoration = {
-        rounding = 8;
-      };
-
-      input = {
-        kb_layout = "us";
-        kb_variant = "altgr-intl";
-        kb_options = "caps:escape";
-      };
-
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
-
-      misc = {
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-      };
-
-      animations = {
-        enabled = true;
-        animation = [
-          "windows, 1, 3, default"
-          "windowsOut, 1, 3, default, popin 80%"
-          "fade, 1, 3, default"
-          "workspaces, 1, 3, default"
-          "border, 1, 5, default"
-          "borderangle, 1, 4, default"
-        ];
-      };
-
-      workspace = [
-        "1, monitor:DP-1, default:true"
-        "2, monitor:DP-1"
-        "3, monitor:DP-1"
-        "4, monitor:DP-1"
-        "5, monitor:DP-1"
-        "6, monitor:DP-1"
-        "7, monitor:DP-1"
-        "8, monitor:DP-2, default:true"
-        "9, monitor:DP-2"
-        "10, monitor:DP-2"
-      ];
 
       env = [
-        "XCURSOR_THEME,Bibata-Modern-Ice"
-        "XCURSOR_SIZE,35"
-        "GTK_THEME,Adwaita:dark"
-        "ADW_DISABLE_PORTAL,1"
+        {
+          _args = [
+            "XCURSOR_THEME"
+            "Bibata-Modern-Ice"
+          ];
+        }
+        {
+          _args = [
+            "XCURSOR_SIZE"
+            "35"
+          ];
+        }
+        {
+          _args = [
+            "GTK_THEME"
+            "Adwaita:dark"
+          ];
+        }
+        {
+          _args = [
+            "ADW_DISABLE_PORTAL"
+            "1"
+          ];
+        }
       ];
 
-      bind = [
-        "$mod, T, exec, ${terminal}"
-        "$mod, Return, exec, ${terminal}"
-        "$mod, W, exec, ${pkgs.firefox}/bin/firefox"
-        "$mod, D, exec, ${pkgs.fuzzel}/bin/fuzzel"
-        "$mod, Q, killactive,"
-        "$mod SHIFT, F, togglefloating,"
-        "$mod, P, exec, 1password --quick-access"
-        "$mod SHIFT, grave, exec, ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png"
+      config = {
+        general = {
+          gaps_in = 4;
+          gaps_out = 0;
+          border_size = 2;
+          col = {
+            active_border = "rgb(285577)";
+            inactive_border = "rgb(222222)";
+          };
+          layout = "dwindle";
+        };
 
-        # Focus
-        "$mod, H, movefocus, l"
-        "$mod, L, movefocus, r"
-        "$mod, K, movefocus, u"
-        "$mod, J, movefocus, d"
-        "$mod, Left, movefocus, l"
-        "$mod, Right, movefocus, r"
-        "$mod, Up, movefocus, u"
-        "$mod, Down, movefocus, d"
+        decoration = {
+          rounding = 8;
+        };
 
-        # Move windows
-        "$mod SHIFT, H, movewindow, l"
-        "$mod SHIFT, L, movewindow, r"
-        "$mod SHIFT, K, movewindow, u"
-        "$mod SHIFT, J, movewindow, d"
-        "$mod SHIFT, Left, movewindow, l"
-        "$mod SHIFT, Right, movewindow, r"
-        "$mod SHIFT, Up, movewindow, u"
-        "$mod SHIFT, Down, movewindow, d"
+        input = {
+          kb_layout = "us";
+          kb_variant = "altgr-intl";
+          kb_options = "caps:escape";
+        };
 
-        # Workspaces
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
+        dwindle = {
+          preserve_split = true;
+        };
 
-        # Move to workspace
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+        };
 
-        # Fullscreen
-        "$mod, F, fullscreen, 0"
+        animations = {
+          enabled = true;
+        };
+      };
 
-        # Session
-        "$mod SHIFT, E, exec, ${power-menu}"
+      animation = [
+        {
+          leaf = "windows";
+          enabled = true;
+          speed = 3;
+          bezier = "default";
+        }
+        {
+          leaf = "windowsOut";
+          enabled = true;
+          speed = 3;
+          bezier = "default";
+          style = "popin 80%";
+        }
+        {
+          leaf = "fade";
+          enabled = true;
+          speed = 3;
+          bezier = "default";
+        }
+        {
+          leaf = "workspaces";
+          enabled = true;
+          speed = 3;
+          bezier = "default";
+        }
+        {
+          leaf = "border";
+          enabled = true;
+          speed = 5;
+          bezier = "default";
+        }
+        {
+          leaf = "borderangle";
+          enabled = true;
+          speed = 4;
+          bezier = "default";
+        }
       ];
 
-      # Move/resize with mouse
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+      workspace_rule = [
+        {
+          workspace = "1";
+          monitor = "DP-1";
+          default = true;
+        }
+        {
+          workspace = "2";
+          monitor = "DP-1";
+        }
+        {
+          workspace = "3";
+          monitor = "DP-1";
+        }
+        {
+          workspace = "4";
+          monitor = "DP-1";
+        }
+        {
+          workspace = "5";
+          monitor = "DP-1";
+        }
+        {
+          workspace = "6";
+          monitor = "DP-1";
+        }
+        {
+          workspace = "7";
+          monitor = "DP-1";
+        }
+        {
+          workspace = "8";
+          monitor = "DP-2";
+          default = true;
+        }
+        {
+          workspace = "9";
+          monitor = "DP-2";
+        }
+        {
+          workspace = "10";
+          monitor = "DP-2";
+        }
       ];
 
-      windowrule = [
-        "border_size 0, match:workspace w[1]"
-        "match:class org.pulseaudio.pavucontrol, float on"
-        "match:class 1Password, float on"
-      ];
-
-      exec-once = [
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME ADW_DISABLE_PORTAL"
-        "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
-        "${pkgs.swaybg}/bin/swaybg --output 'DP-1' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${horizontalWallpaper}'"
-        "${pkgs.swaybg}/bin/swaybg --output 'DP-2' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${verticalWallpaper}'"
-        "${pkgs.kanshi}/bin/kanshi"
-        "${pkgs.waybar}/bin/waybar -c ${config.xdg.configHome}/waybar/hyprland-config -s ${config.xdg.configHome}/waybar/hyprland-style.css"
+      window_rule = [
+        {
+          match = {
+            workspace = "w[1]";
+          };
+          border_size = 0;
+        }
+        {
+          match = {
+            class = "org.pulseaudio.pavucontrol";
+          };
+          float = true;
+        }
+        {
+          match = {
+            class = "1password";
+          };
+          float = true;
+          center = true;
+        }
+        {
+          match = {
+            class = "tidal-hifi";
+          };
+          float = true;
+          center = true;
+          size = "60% 80%";
+        }
       ];
     };
+
+    extraConfig = ''
+      -- Keybindings
+      hl.bind(mod .. " + T", hl.dsp.exec_cmd("${terminal}"))
+      hl.bind(mod .. " + Return", hl.dsp.exec_cmd("${terminal}"))
+      hl.bind(mod .. " + W", hl.dsp.exec_cmd("${pkgs.firefox}/bin/firefox"))
+      hl.bind(mod .. " + D", hl.dsp.exec_cmd("${pkgs.fuzzel}/bin/fuzzel"))
+      hl.bind(mod .. " + Q", hl.dsp.window.close())
+      hl.bind(mod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+      hl.bind(mod .. " + P", hl.dsp.exec_cmd("1password --quick-access"))
+      hl.bind(mod .. " + N", hl.dsp.exec_cmd("${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"))
+      hl.bind(mod .. " + SHIFT + grave", hl.dsp.exec_cmd('${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -d)" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png'))
+
+      -- Focus
+      hl.bind(mod .. " + H", hl.dsp.focus({ direction = "left" }))
+      hl.bind(mod .. " + L", hl.dsp.focus({ direction = "right" }))
+      hl.bind(mod .. " + K", hl.dsp.focus({ direction = "up" }))
+      hl.bind(mod .. " + J", hl.dsp.focus({ direction = "down" }))
+      hl.bind(mod .. " + left", hl.dsp.focus({ direction = "left" }))
+      hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }))
+      hl.bind(mod .. " + up", hl.dsp.focus({ direction = "up" }))
+      hl.bind(mod .. " + down", hl.dsp.focus({ direction = "down" }))
+
+      -- Move windows
+      hl.bind(mod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+      hl.bind(mod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+      hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+      hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+      hl.bind(mod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
+      hl.bind(mod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+      hl.bind(mod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
+      hl.bind(mod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
+
+      -- Workspaces
+      for i = 1, 9 do
+        hl.bind(mod .. " + " .. i, hl.dsp.focus({ workspace = i }))
+        hl.bind(mod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+      end
+      hl.bind(mod .. " + 0", hl.dsp.focus({ workspace = 10 }))
+      hl.bind(mod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
+
+      -- Fullscreen
+      hl.bind(mod .. " + F", hl.dsp.window.fullscreen())
+
+      -- Session
+      hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("${power-menu}"))
+
+      -- Move/resize with mouse
+      hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+      -- Autostart
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME ADW_DISABLE_PORTAL")
+        hl.exec_cmd("${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets")
+        hl.exec_cmd("${pkgs.swaybg}/bin/swaybg --output 'DP-1' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${horizontalWallpaper}'")
+        hl.exec_cmd("${pkgs.swaybg}/bin/swaybg --output 'DP-2' -m fill --image '${config.home.homeDirectory}/${wallpaperDir}/${verticalWallpaper}'")
+        hl.exec_cmd("${pkgs.kanshi}/bin/kanshi")
+        hl.exec_cmd("systemctl --user restart waybar-hyprland")
+      end)
+    '';
   };
 
 }

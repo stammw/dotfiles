@@ -14,6 +14,9 @@
 
   security.polkit.enable = true;
 
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     XKB_DEFAULT_LAYOUT = "us";
@@ -30,9 +33,7 @@
     grim
     slurp
     wl-clipboard
-    mako
     blueman
-    claude-desktop
     hyprlock
   ];
 
@@ -40,8 +41,61 @@
 
   services.displayManager = {
     gdm.enable = true;
-    gdm.wayland = true;
   };
+
+  # Set GDM background to match Hyprland wallpaper
+  environment.etc."gdm-wallpaper.png".source = ./wallpapers/pillars.png;
+
+  programs.dconf.profiles.gdm.databases = [
+    {
+      settings = {
+        "org/gnome/desktop/background" = {
+          picture-uri = "file:///etc/gdm-wallpaper.png";
+          picture-uri-dark = "file:///etc/gdm-wallpaper.png";
+          picture-options = "zoom";
+        };
+      };
+    }
+  ];
+
+  # Disable DP-2 (vertical Dell U4021QW) in GDM, only show DP-1
+  systemd.tmpfiles.rules = [
+    "d /run/gdm/.config 0711 gdm gdm -"
+    "C /run/gdm/.config/monitors.xml - gdm gdm - /etc/gdm-monitors.xml"
+  ];
+  environment.etc."gdm-monitors.xml".source = pkgs.writeText "monitors.xml" ''
+    <monitors version="2">
+      <configuration>
+        <logicalmonitor>
+          <x>0</x>
+          <y>0</y>
+          <scale>1</scale>
+          <primary>yes</primary>
+          <monitor>
+            <monitorspec>
+              <connector>DP-1</connector>
+              <vendor>DEL</vendor>
+              <product>DELL U4025QW</product>
+              <serial>CY6XM04</serial>
+            </monitorspec>
+            <mode>
+              <width>5120</width>
+              <height>2160</height>
+              <rate>120</rate>
+            </mode>
+          </monitor>
+        </logicalmonitor>
+        <disabled>
+          <monitorspec>
+            <connector>DP-2</connector>
+            <vendor>DEL</vendor>
+            <product>DELL U4021QW</product>
+            <serial>BCLM9H3</serial>
+          </monitorspec>
+        </disabled>
+      </configuration>
+    </monitors>
+  '';
 
 
   services.gnome.gnome-keyring.enable = true;

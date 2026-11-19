@@ -10,6 +10,32 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Disable USB autosuspend on the Bluetooth adapter (Qualcomm, 0489:e10a).
+  # Without this, the BT chip suspends after ~2s of USB idle, causing the
+  # Switch Pro Controller to periodically disconnect and require mashing
+  # buttons to wake the link back up.
+  boot.extraModprobeConfig = ''
+    options btusb enable_autosuspend=0
+  '';
+  # Unmerged upstream fix (as of 2026-09) for hid-nintendo false-positive
+  # subcommand-rate-limit warnings on every Bluetooth connection, caused by
+  # the driver's zero-rumble init packet going out before any input reports
+  # establish the cadence. Causes "joycon_enforce_subcmd_rate: exceeded max
+  # attempts" / "timeout waiting for input report" and repeated disconnects
+  # on the Switch Pro Controller.
+  # Note: the "legacy-fallback" half of this fix landed upstream in 7.3.3,
+  # so only the follow-up "unproven" patch (which applies on top of it) is
+  # still needed here.
+  boot.kernelPatches = [
+    {
+      name = "hid-nintendo-subcmd-rate-unproven";
+      patch = ./patches/hid-nintendo-subcmd-rate-unproven.patch;
+    }
+  ];
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e10a", TEST=="power/control", ATTR{power/control}="on"
+  '';
+
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -66,7 +92,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    pulseaudio = true;
   };
 
   nix.settings = {
@@ -93,7 +118,7 @@
     desktop-file-utils
     rclone
     wireguard-tools
-    protonvpn-gui
+    proton-vpn
   ];
 
   security.pam.loginLimits = [
@@ -113,6 +138,8 @@
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
   ];
+
+  hardware.keyboard.zsa.enable = true;
 
   programs.steam.enable = true;
 

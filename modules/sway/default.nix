@@ -21,7 +21,6 @@ in
     grim
     slurp
     wl-clipboard
-    mako
     ulauncher
   ];
 
